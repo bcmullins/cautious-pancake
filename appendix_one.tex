@@ -1,0 +1,163 @@
+\title{Appendix One}
+\date{\today}
+\author{Brett Mullins}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amsthm, amsfonts, verbatim}
+
+% Theorems
+%-----------------------------------------------------------------
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+
+% Shortcuts.
+% One can define new commands to shorten frequently used
+% constructions. As an example, this defines the R and Z used
+% for the real and integer numbers.
+%-----------------------------------------------------------------
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+\def\PP{\mathcal{P}}
+\def\la{\lambda}
+\def\contra{\rightarrow \leftarrow}
+
+% Similarly, one can define commands that take arguments. In this
+% example we define a command for the absolute value.
+% -----------------------------------------------------------------
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\begin{document}
+\maketitle
+
+\textbf{Problem 1.a} Solve the following programming problem:
+\begin{align*}
+  \max 3 \log(w) +& 2 \log(2+c) \\
+  \text{subject to } c \geq& 0 \\
+  w \geq& 0 \\
+  w+c \leq& 10 \\
+  150w + 200c \leq& 1650
+\end{align*}
+
+\begin{proof}[Solution]
+
+We first find the Lagrangian: $$3 \log(w) + 2 \log(2+c) + \lambda_1c + \lambda_2w - \lambda_3(w+c-10) - \lambda_4(150w + 200c - 1650)$$ where $\lambda_1 \ldots \lambda_4 \geq 0$. Now for the first order conditions:
+\begin{equation}\label{eq:fo1} \frac{3}{w} + \lambda_2 - \lambda_3 - 150\lambda_4 = 0 \end{equation}
+\begin{equation}\label{eq:f02} \frac{2}{2+c} + \lambda_1 - \lambda_3 - 200\lambda_4 =0 \end{equation}
+
+We now write out the complementary slackness conditions:
+\begin{align*}
+  \lambda_1c =& 0 \\
+  \lambda_2w =& 0 \\
+  \lambda_3(10-w-c) =& 0 \\
+  \lambda_4(1650 - 150w - 200c) =& 0
+\end{align*}
+Observe that $w \neq 0$; otherwise, (\ref{eq:fo1}) would be undefined. Then $\lambda_2 = 0$.
+\begin{enumerate}
+  \item Suppose $c = 0$. Then (\ref{eq:f02}) becomes $1 + \lambda_1 - \lambda_3 - 200\lambda_4 = 0$. Since $1 + \lambda_1 > 0$, either $\lambda_3 > 0$ or $\lambda_4 > 0$.
+  \begin{enumerate}
+    \item Suppose $\lambda_3 > 0$. Then $10 - w - c = 0$ or $10 = w + c$. But since $c = 0$, $w = 10$. Notice that $150*10 +200*0 = 1500 < 1650$, so $\lambda_4 = 0$. Updating (\ref{eq:fo1}), we have $\frac{3}{10} - \lambda_3  = 0$. So $\lambda_3 = \frac{3}{10}$.
+    Turning back to (\ref{eq:f02}), we have $1 + \lambda_1 - \frac{3}{10} = 0$. Hence, $\lambda_1 = -0.7$. $\rightarrow \leftarrow$.
+    \item The alternative is that $\la_4 > 0$, since $\la_3 = 0$. Then $1650 - 150w = 0$. So $w = \frac{1650}{150} = 11$. But then $w + c = 11 > 10$. $\rightarrow \leftarrow$.
+  \end{enumerate}
+  \item Suppose $c \neq 0$. Then $\la_1 = 0$. Updating (\ref{eq:f02}), we have that $\frac{2}{2+c} - \lambda_3 - 200\lambda_4 =0$. Then either $\la_3 >0$ or $\la_4 > 0$.
+  \begin{enumerate}
+    \item Suppose $\la_3 > 0$. Then $w+c = 10$ or $c = 10 - w$.
+    \begin{enumerate}
+      \item Suppose $\la_4 > 0$. Then $150w + 200c = 1650$. Substituting from the above, we obtain
+      \begin{align*}
+        &&           150w + 200(10-w) =& 1650 \\
+        & \implies & 2000 - 50w =& 1650 \\
+        & \implies & 350 =& 50w \\
+        & \implies & w =& 7.
+      \end{align*}
+      Then $c = 3$. We can rewrite the first order conditions as
+      \begin{align*}
+        \la_3 + 150\la_4 =& \frac{3}{7} \\
+        \la_3 + 200\la_4 =& \frac{2}{5}.
+      \end{align*}
+      Solving for $\la_3$ in (\ref{eq:fo1}), we obtain $\la_3 = \frac{3}{7} - 150\la_4$. Substituting into (\ref{eq:f02}), we obtain
+      \begin{align*}
+        &           &\frac{3}{7} - 150\la_4 + 200\la_4 =& \frac{2}{5} \\
+        & \implies  &\frac{3}{7} - \frac{2}{5} =& -50\la_4 \\
+        & \implies  &\frac{1}{35} =& -50\la_4 \\
+        & \implies  &\la_4 =& -\frac{10}{7}.
+      \end{align*}
+      But $\la_4 > 0$. $\rightarrow \leftarrow$.
+      \item Then $\la_4 = 0$. We may rewrite our first order conditions as follows:
+      \begin{align*}
+        \frac{3}{w} - \lambda_3 =& 0 \\
+        \frac{2}{12-w} - \lambda_3 =& 0
+      \end{align*}
+      So $\la_3 = \frac{3}{w}$. Substituting this into the second line above, we obtain
+      \begin{align*}
+        &          & \frac{2}{12-w} =& \frac{3}{w} \\
+        & \implies & 2w =& 3(12-w) \\
+        & \implies & 5w =& 36 \\
+        & \implies & w =& \frac{36}{5}.
+      \end{align*}
+      Then $c = 10 - \frac{36}{5} = \frac{14}{5}$. Moreover, $\la_3 = \frac{15}{36}$.
+      All conditions are satisfied, so $w = \frac{36}{5}, c = \frac{14}{5}$ is a candidate solution. Let us proceed to check for others.
+    \end{enumerate}
+    \item Suppose $\la_3 = 0$.
+    \begin{enumerate}
+      \item Suppose $\la_4 > 0$. Then $1650 - 150w - 200c = 0$ or $150w + 200c = 1650$. We can represent the first order conditions as follows:
+      \begin{align*}
+        \frac{3}{w} - 150\la_4 =& 0 \\
+        \frac{2}{2+c} - 200\la_4 =& 0.
+      \end{align*}
+      Let us solve each for $\la_4$:
+      \begin{align*}
+        \frac{1}{50w} =& \la_4 \\
+        \frac{1}{200+100c} =& \la_4.
+      \end{align*}
+      Setting these equations equal, we observe:
+      \begin{align*}
+        &           & \frac{1}{50w} &= \frac{1}{200+100c} \\
+        & \implies  & 200+100c &= 50w \\
+        & \implies  & 4+2c &= w.
+      \end{align*}
+      Then
+      \begin{align*}
+        &           & 150(4+2c) + 200c &= 1650 \\
+        & \implies  & 600 + 300c + 200c &= 1650 \\
+        & \implies  & 500c &= 1050 \\
+        & \implies  & c &= \frac{1050}{500} \\
+        & \implies  & c &= 2.1.
+      \end{align*}
+      Then $w = 4+2(2.1) = 8.2$. Observe, however, that $c+w = 10.3 > 10$. $\rightarrow \leftarrow$.
+      \item Observe that we cannot have both $\la_3 = 0$ and $\la_4 = 0$.
+    \end{enumerate}
+  \end{enumerate}
+\end{enumerate}
+Since $w = \frac{36}{5}, c = \frac{14}{5}$ is the only candidate solution, it is the optimal solution to the problem.
+\end{proof}
+Problem 1 asks for variations on this problem which changes one of the constraints; however, the exercise would be pure repetition.
+\\
+\textbf{Problem 3}. \begin{thm} Suppose $P$ is a general mathematical program with the following form:
+\begin{align*}
+  &\max f(x) \\
+  &\text{subject to } g_i(x) \leq c_i \text{ for } i = 1,\ldots,n
+\end{align*}
+with objective function $f$ and constraints $g_i$. If $f$ is strictly concave and $g_i$ are all convex, then the solution is unique if it exists.
+\end{thm}
+\begin{proof}
+Suppose $x^*, y^*$ are solutions to $P$. Let $\alpha \in (0,1)$. Let $z = \alpha x^* + (1-\alpha)y^*$. Since $g_i$ is convex,
+\begin{align*}
+  g_i(z) &= g_i(\alpha x^* + (1-\alpha)y^*) \\
+  &\leq \alpha g_i(x^*) + (1-\alpha)g_i(y^*) \\
+  &\leq g_i(x^*)
+\end{align*}
+supposing, WLOG, that $g_i(x^*) < g_i(y^*)$. Then $z$ is a candidate solution, since it satisfies all constraints. Observe that
+\begin{align*}
+  f(z) &= f(\alpha x^* + (1-\alpha)y^*) \\
+  &> \alpha f(x^*) + (1-\alpha)f(y^*), \text{ since $f$ is strictly concave}, \\
+  &> f(x^*)
+\end{align*}
+suppose, WLOG, that $f(x^*) < f(y^*)$. Hence, neither $x^*$ nor $y^*$ is a solution to $P$. $\contra$
+\end{proof}
+\end{document}
