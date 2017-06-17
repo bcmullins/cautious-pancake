@@ -1,0 +1,251 @@
+\title{Chapter 2}
+\date{\today}
+\author{Brett Mullins}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amsthm, amsfonts, verbatim, amssymb}
+
+% Theorems
+%-----------------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+
+% Shortcuts.
+% One can define new commands to shorten frequently used
+% constructions. As an example, this defines the R and Z used
+% for the real and integer numbers.
+%-----------------------------------------------------------------
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+\def\QQ{\mathbb{Q}}
+\def\PP{\mathcal{P}}
+\def\la{\lambda}
+\def\contra{\rightarrow \leftarrow}
+\def\empty{\varnothing}
+
+% Similarly, one can define commands that take arguments. In this
+% example we define a command for the absolute value.
+% -----------------------------------------------------------------
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\begin{document}
+\maketitle
+%
+% Problem 1
+%
+\section{}
+Let $\succ$ be a binary relation on $X$. We say that $x \succeq y$ if it is not the case that $y \succ x$.
+\begin{thm}
+  The relation $\succ$ is asymmetric if and only if $\succeq$ is complete.
+\end{thm}
+\begin{proof} Suppose $\succ$ is defined on the set $X$.
+  \begin{enumerate}
+    \item $(\rightarrow)$ Suppose $\succ$ is an asymetric relation. Then there is no $x, y \in X$ such that $x \succ y$ and $y \succ x$. Hence, either $y \succeq x$ or $x \succeq y$. So $\succeq$ is complete.
+    \item $(\leftarrow)$ Suppose $\succeq$ is complete. Then for every $x, y \in X$ either $y \succeq x$ or $x \succeq y$. WLOG, suppose $x \succ y$. For contradiction, suppose that $y \succ x$. Then if $y \succeq x$ we have that $\neg(x \succ y)$, a contradiction. On the other hand, if $x \succeq y$, then $\neg(y \succ x)$, a contradiction. $\contra$.
+  \end{enumerate}
+\end{proof} 
+\begin{thm}
+  The relation $\succ$ is negatively transitive if and only if $\succeq$ is transitive.
+\end{thm}
+\begin{proof} Suppose $\succ$ is defined on the set $X$.
+  \begin{enumerate}
+    \item $(\rightarrow)$ Suppose $\succ$ is negatively transitive, $x \succeq y$, and $y \succeq z$ for $x,y,z \in X$. Suppose it is not the case that $x \succeq z$. Then $z \succ x$. By negative transitivity, either $z \succ y$ or $y \succ x$. If the former holds, a contradiction is reached. If the latter holds, a contradiction is reached. $\contra$. Hence, $\succeq$ is transitive.
+    \item $(\leftarrow)$ Suppose $\succeq$ is transitive, $x \succ y$, and $x,y,z \in X$. For contradiction, suppose that neither $x \succ z$ nor $z \succ y$ obtains. Then $z \succeq x$ and $y \succeq z$. Since $\succeq$ is transitive, $y \succeq x$. This occurs just in case $\neg(x \succ y)$. $(\contra)$.
+  \end{enumerate}
+\end{proof}
+%
+% Problem 2
+%
+\section{}
+Let $\succ$ be a binary relation on $X$. We say $x \sim y$ if neither $x \succ y$ nor $y \succ x$, $x,y \in X$.
+\begin{thm}
+  If $\succ$ is asymmetric and negatively transitive, then $\sim$ is an equivalence relation.
+\end{thm}
+\begin{proof}
+  Suppose $\succ$ is an asymmetric and negatively transitive relation on $X$.
+  \begin{enumerate}
+    \item Suppose $x \succ x$. This violates asymmetry. $(\contra)$. Hence, $x \sim x$.
+    \item Suppose $x \sim y$. Then neither $x \succ y$ nor $y \succ x$. Trivially, $y \sim x$.
+    \item Suppose $x \sim y$ and $y \sim z$. Then none of the following hold: $x \succ y, y \succ x, y \succ z, z \succ y$. This implies that the following obtain: $y \succeq x, x \succeq y, z \succeq y, y \succeq z$. Since $\succ$ is negatively transitive, $\succeq$ is transitive. Then both $z \succeq x$ and $x \succeq z$. It follows that $\neg(x \succ z)$ and $\neg(z \succ x)$. Hence, $x \sim z$.
+  \end{enumerate}
+\end{proof}
+%
+% Problem 3
+%
+\section{}
+\begin{thm}
+  Suppose $\succ$ is asymmetric and negatively transitive. Then
+  \begin{enumerate}
+    \item For every finite set $A$, $c(A,\succ) \neq \empty$.
+    \item Suppose $x,y \in A,B \subseteq X$, $x \in c(A, \succ)$, and $y \in c(B, \succ)$. Then $x \in c(B, \succ)$ and $y \in c(A, \succ)$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  Suppose $\succ$ is asymmetric and negatively transitive.
+  \begin{enumerate}
+    \item Let $A \subseteq X$ be finite of size $n$ and that $c(A, \succ) = \empty$. This implies that for every $x \in X$ there is a $y \in X$ such that $y \succ x$. Let $x_0 \in X$. Construct the sequence $s = x_0, x_1, \ldots, x_{n+1}$ where $x_i$ is an element of $X$ such that $x_i \succ x_{i-1}$ for $i \geq 1$. Then some subsequence of $s$ is a cycle with respect to $\succ$.
+    By \emph{Proposition 2.1}, $\succ$ is acyclic. $(\contra)$.
+    \item Suppose $x,y \in A,B \subseteq X$, $x \in c(A, \succ)$, and $y \in c(B, \succ)$. Then $\neg(y \succ x)$ and $\neg(x \succ y)$. So $x \sim y$. By \emph{Proposition 2.4(d)}, there is no $z \in A$ such that $z \succ y$ since this implies $z \succ x$. So $y \in c(A, \succ)$. Similarly, $x \in c(B, \succ)$.
+  \end{enumerate}
+\end{proof}
+%
+% Problem 4
+%
+\section{}
+Let $c$ be a choice function on $X$. Let $\succ_c$ denote the relation $x \succ_c y$ if for any $A \subseteq X, x,y \in A$, $x \in c(A)$ but $y \notin c(A)$.
+\begin{thm}
+  Suppose $c$ is never empty on a non-empty set and satisfies Houthakker's axiom of revealed preference. Then $\succ_c$ is both asymmetric and negatively transitive.
+\end{thm}
+\begin{proof}
+  Suppose $x \succ_c y, x,y \in X$. Then there is some $A \subseteq X$ such that $x,y \in A$ and $x \in c(A)$ but $y \notin c(A)$.
+  \begin{enumerate}
+    \item For contradiction, suppose $y \succ_c x$, i.e., there exists $B \subseteq X$ such that $x,y \in B$ and $y \in c(B)$ but $x \notin c(B)$. By Houthakker's axiom, $x \in c(B)$ and $y \in c(A)$. $(\contra)$.
+    \item Suppose $z \in X$ and let $C = A \cup \{ z \}$. Either $z \in c(C)$ or $z \notin c(C)$. Supposing the former, we have that $z \succ_c y$. Supposing the latter, we have that $x \succ_c z$.
+  \end{enumerate}
+\end{proof}
+\begin{thm}
+  Let us define the set function $c(\cdot, \succ_c)$. Then $c(\cdot, \succ_c) = c(\cdot)$.
+\end{thm}
+\begin{proof}
+  Let $A \subseteq X$. Suppose that $c(A, \succ_c) \neq c(A)$.
+  \begin{enumerate}
+    \item Suppose $x \in c(A, \succ_c), x \notin c(A)$. Then there is $y \in A$ such that $y \succ_c x$, since $c(A) \neq \empty$. On the other hand, there is no $z \in A$ such that $z \succ_c x$. $(\contra)$.
+    \item Suppose $x \notin c(A, \succ_c), x \in c(A)$. Then there exists $y \in A$ such that $y \succ_c x$. By the definition of $\succ_c$, there is $B \subseteq X$ such that $x,y \in B, y \in c(B), x \notin c(B)$. By Houthakker's axiom, $x \in c(B)$ and $y \in c(A)$. $(\contra)$.
+  \end{enumerate}
+\end{proof}
+Part (b) asks us to show that no data can ever contradict this simple choice framework. This much should be evident. Suppose we observe $x$ and $y$ chosen from $A$. Is this the case that $x,y \in c(A)$ or $x \succ_c y$ and $y \succ_c x$? These are indistinguishable from what we observe.
+\begin{thm}
+  Suppose we observe $c(A)$ for some but not all $A \subseteq X$. Then there exists a collection of partial data that satisfies Houthakker's axiom but admits a cycle with respect to $\succ_c$.
+\end{thm}
+\begin{proof}
+  Suppose $X = \{ a, b, c \}$ and $c(\{ a, b \}) = \{ a \}, c(\{ b, c \}) = \{ b \}, c(\{ c, a \}) = \{ c \}$. Observe that these partial data trivially satisfy Houthakker's axiom. Moreover, they induce the following ordering: $a \succ_c b \succ_c c \succ_c a$. Hence, a cycle is permitted, violating the standard preference-based choice model.
+\end{proof}
+\noindent Moreover, if the partial data do not contain cycles, then they cannot violate the standard choice model.
+%
+% Problem 5
+%
+\section{}
+Suppose $X = [0,1] \times [0,1]$ and $(x_1, x_2) \succ (x'_1, x'_2)$ if either $x_1 > x'_1$ or $x_1 = x'_1$ and $x_2 > x'_2$.
+\begin{thm}
+  The relation $\succ$ on $X$ is asymmetric and negatively transitive but does not have a numerical representation.
+\end{thm}
+\begin{proof} Let $x = (x_1, x_2) \in X$.
+  \begin{enumerate}
+    \item Suppose $x \succ y$ for some $y \in X$. Then either $x_1 > y_1$ or $x_1 = y_1$ and $x_2 > y_2$. If the former obtains, $y \not \succ x$. If the latter obtains, then $y \not \succ x$. Hence, $\succ$ is asymmetric.
+    \item Suppose $x \succ y$ and $z \in X$. Either $z_1 = x_1$ or not.
+    \begin{enumerate}
+      \item Suppose so. Then either $z_2 = x_2$, $z_2 > x_2$, or $z_2 < x_2$. In the first case, $x = z$, so $z \succ y$. In the second case, $z \succ x$, so $z \succ y$, by transitivity, assuming transitivity is clear. In the third case, $x \succ z$.
+      \item Suppose not. Then either $z_1 > x_1$ or $z_2 > x_2$. If the former, then $z \succ x$ and, by transitivity, $z \succ y$. If the latter, then $x \succ z$.
+    \end{enumerate}
+    Hence, $\succ$ is negatively transitive.
+    \item Suppose that a numerical representation $U$ exists. Let $a \in (0,1)$ and define $r(a)$ as a rational number in the interval $(U((a, 0)), U((a, 1)))$. Notice that this interval is non-empty since $(a, 1) \succ (a, 0)$. Moreover, if $a \neq b$, then $r(a) \neq r(b)$, i.e, $r$ is an injection from $\RR$ to $\QQ$. $(\contra)$.
+  \end{enumerate}
+\end{proof}
+%
+% Problem 6
+%
+\section{}
+Recall preferences on $X$ are \emph{convex} if every pair $x,y \in X$ with $x \succeq y, \alpha \in [0,1]$, we have that $\alpha x + (1-\alpha)y \succeq y$. Let the set $AsGood(x)$ denote the set of elements of $X$ not behind $x$ in the ordering.
+\begin{thm}
+  Preferences are convex if and only if for every point $x \in X$ the set $AsGood(x)$ is convex.
+\end{thm}
+\begin{proof}
+  \begin{enumerate}
+    \item $(\rightarrow)$ Suppose preferences on $X$ are convex. Let $x \in X$ and suppose $y \in AsGood(x)$. Then $y \succeq x$. Set $\alpha \in [0,1]$. Then $\alpha y + (1-\alpha)x \succeq x$. Hence, $\alpha y + (1-\alpha)x \in AsGood(x)$.
+    \item $(\leftarrow)$ Suppose that for every point $x \in X$ the set $AsGood(x)$ is convex. Let $y \in AsGood(x), \alpha \in [0,1]$. Then $y \succeq x$. Since $AsGood(x)$ is convex, $\alpha y + (1-\alpha)x \in AsGood(x)$. So $\alpha y + (1-\alpha)x \succeq x$.
+  \end{enumerate}
+\end{proof}
+%
+% Problem 7
+%
+\section{}
+Coming soon!
+%
+% Problem 8
+%
+\section{}
+Recall that preferences are \emph{semi-strictly convex} if for every $x, y \in X$ such that $x \succ y$ for $\alpha \in (0,1)$ we have that $\alpha x + (1-\alpha)y \succ y$; they are \emph{globally insatiable} if for all $x \in X$ there is some $y \in X$ with $y \succ x$; and they are \emph{locally insatiable} if for every $x \in X$ and $\epsilon > 0$ there exists $y \in X$
+such that $\abs{x-y} < \epsilon$ componentwise and $y \succ x$.
+\begin{thm}
+  If preferences are semi-strictly convex, globally instaiable, and $X$ is convex, then preferences are locally insatiable.
+\end{thm}
+\begin{proof}
+  Let $\epsilon > 0$ be given. Since preferences are globally insatiable there exists $y \in X$ such that $y \succ x$. Let $\alpha_i \in (0, \frac{\epsilon}{\abs{y_i - x_i}})$ and $\alpha = \min_i \alpha_i$. Define $z = \alpha y + (1 - \alpha)x$. Since $X$ is convex, $z \in X$. Observe that
+  \begin{align*}
+    \abs{z_i-x_i} &= \abs{\alpha y_i + (1 - \alpha)x_i - x_i} \\
+    &= \abs{\alpha y_i + x_i - \alpha x_i - x_i} \\
+    &= \abs{\alpha(y_i - x_i)} \\
+    &< \abs{\frac{\epsilon}{\abs{y_i - x_i}} (y_i - x_i)} \\
+    &= \epsilon.
+  \end{align*}
+  Moreover, since preferences are semi-strictly convex, we have that $z \succ x$.
+\end{proof}
+%
+% Problem 9
+%
+\section{}
+Demand data are said to satisfy the \emph{Generalized Axiom of Revealed Preference (GARP)} if for preferences that the data reveal, a cycle cannot be constructed where one or more of the preference relations is strict.
+\begin{thm}
+  If a finite set of demand data satisfies GARP, then these data are consistent with maximization of locally insatiable preferences.
+\end{thm}
+\begin{proof}
+  Suppose that $x^1 \text{ chosen at } (p^1, Y^1), \ldots, x^n \text{ chosen at } (p^n, Y^n)$ is a finite set of demand data. Suppose we observe that $x^i$ is chosen at $(p^i, Y^i)$ however $x^i \cdot p^i < Y^i$. Since preferences are locally insatiable, there exists $x^{i'}$ such that $x^{i'} \succ x^i$ and $x^{i'} \cdot p^i = Y^i$. So we have both $x^i \succeq x^{i'}$, since $x^i$ was observed, and $x^{i'} \succ x^i$, i.e., we've formed a finite cycle where at least one preference relation is strict. This contradicts GARP. $(\contra)$.
+\end{proof}
+%
+% Problem 10
+%
+\section{}
+\begin{thm}
+  Suppose there are $K$ goods in the world. There is a consumer with locally insatiable preferences such that her preferences are strictly convex for the first $j$ goods. If $x^1, x^2$ are two bundles with $x^1_i = x^2_i, i = 1, \ldots, j$ then $x^1 \sim x^2$. Then if prices are strictly positive, then this consumer's solution to $(CP)$ is unique. (Note: there is a typo in the statement of strictly convex in the text.)
+\end{thm}
+\begin{proof}
+  Suppose that $x^1, x^2$ are both solutions to $(CP)$. Then $x^1 \sim x^2$ and $p \cdot x^i = Y, i \in \{ 1, 2 \}$. Define $x^{1'}$ as follows: $x^{1'}_i = x^1_i, i \in \{ 1, \dots, j \}$ and $x^{1'}_i = min \{ x^1_i, x^2_i \}, i \in \{ j+1, \ldots, K \}$.
+  Let $x^{2'}$ be defined similarly. Since prices are strictly positive, $p \cdot x^{i'} \leq Y, i \in \{ 1, 2 \}$. Observe that $x^{1'} \sim x^{2'} \sim x^1 \sim x^2$. In particular, $x^{1'} \succeq x^{2'}$. Let $\alpha \in (0,1)$ and $z = \alpha x^{1'} + (1 - \alpha)x^{2'}$.
+  Since preferences are strictly convex for the first $j$ goods, $z \succ x_{2'}$. This implies that $z \succ x^1, x^2$.  It remains to be shown that $p \cdot z \leq Y$. Observe that
+  \begin{align*}
+    p \cdot z &= p \cdot (\alpha x^{1'} + (1 - \alpha)x^{2'}) \\
+    &= \alpha p \cdot x^{1'} + (1 - \alpha) p \cdot x^{2'} \\
+    &\leq \alpha Y + (1 - \alpha) Y \\
+    &= Y.
+  \end{align*}
+  Hence, $z$ is feasible, $z \succ x^1, x^2$, but $z$ is not the solution to $(CP)$. $(\contra)$.
+\end{proof}
+%
+% Problem 11
+%
+\section{}
+Coming soon!
+%
+% Problem 12
+%
+\section{}
+Coming soon!
+%
+% Problem 13
+%
+\section{}
+These choices are consistent with the usual model of a locally insatiable, utility maximizing consumer. Let us consider each choice in turn. For observed choice $i$, let us denote the chosen bundle as $x^i$, the prices of that choice as $p^i$, and the income constraint as $Y_i$.
+\begin{enumerate}
+  \item Observe that $p^1 \cdot x^1 = Y_1$, satisfying local insatibility. Since each of the other bundles are feasible at $p^i$, this implies $x^1 \succeq x^2, x^3, x^4$.
+  \item Observe that $p^2 \cdot x^2 = Y_2$. No other bundles are feasible at $p^2$.
+  \item Observe that $p^3 \cdot x^3 = Y_3$. Both $x^2, x^4$ are feasible at $p^3$, so $x^3 \succeq x^2, x^4$.
+  \item Obseve that $p^4 \cdot x^4 = Y_4$. At $p^4$, $x^2$ is also feasible, implying that $x^4 \succeq x^2$.
+\end{enumerate}
+This results in a consistent weak preference ordering: $x^1 \succeq x^3 \succeq x^4 \succeq x^2$.
+%
+% Problem 14
+%
+\section{}
+Coming soon!
+%
+% Problem 15
+%
+\section{}
+Coming soon!
+
+\end{document}
