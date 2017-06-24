@@ -1,0 +1,296 @@
+\title{Chapter 3}
+\date{\today}
+\author{Brett Mullins}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amsthm, amsfonts, verbatim, amssymb}
+
+% Theorems
+%-----------------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+
+% Shortcuts.
+% One can define new commands to shorten frequently used
+% constructions. As an example, this defines the R and Z used
+% for the real and integer numbers.
+%-----------------------------------------------------------------
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+\def\QQ{\mathbb{Q}}
+\def\PP{\mathcal{P}}
+\def\la{\lambda}
+\def\contra{\rightarrow \leftarrow}
+\def\empty{\varnothing}
+
+% Similarly, one can define commands that take arguments. In this
+% example we define a command for the absolute value.
+% -----------------------------------------------------------------
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\begin{document}
+\maketitle
+%
+% Problem 1
+%
+
+\section{}
+%
+% Problem 1(a)
+%
+Let $X$ denote the set of prizes and $b \in X$ be the best prize and $w \in X$ be the worst prize. Let $\delta_b$ denote the lottery that results in $b$ for sure. We shall assume that $\delta_b \succ \delta_w$.
+\begin{thm}
+  \label{vN-M1}
+  For $\alpha, \beta \in [0,1]$, $\alpha \delta_b + (1 - \alpha) \delta_w \succ \beta \delta_b + (1 - \beta) \delta_w$ if and only if $\alpha > \beta$.
+\end{thm}
+\begin{proof}
+  Let $\alpha, \beta \in [0,1]$.
+  \begin{enumerate}
+    \item Case 1: Suppose $\alpha = 1$.
+    \begin{enumerate}
+      \item $(\rightarrow)$ Suppose $\alpha \delta_b + (1 - \alpha) \delta_w \succ \beta \delta_b + (1 - \beta) \delta_w$. Then $\delta_b \succ \beta \delta_b + (1 - \beta)\delta_w$. For contradiction, suppose $\beta = 1$. Then $\delta_b \succ \delta_b$. $(\contra)$.
+      \item $(\leftarrow)$ Suppose $\alpha > \beta$. Then $\beta < 1$. We know that $\delta_b \succ \delta_w$. By the Substitution Axiom, we have that
+      \begin{align*}
+        &          & (1 - \beta)\delta_b + (1-(1-\beta))\delta_b &\succ (1 - \beta)\delta_w + (1-(1-\beta))\delta_b \\
+        & \implies & \delta_b &\succ \beta \delta_b + (1 - \beta)\delta_w.
+      \end{align*}
+    \end{enumerate}
+    \item Case 2: $\alpha \in (0,1)$.
+    \begin{enumerate}
+      \item $(\leftarrow)$ Suppose $\alpha > \beta$. Since $\delta_b \succ \delta_w$, by the Substitution Axiom, we obtain
+      \begin{align*}
+        &          & \alpha \delta_b + (1-\alpha)\delta_w &\succ \alpha \delta_w + (1 - \alpha)\delta_w \\
+        & \implies & \alpha \delta_b + (1-\alpha)\delta_w &\succ \beta \delta_w.
+      \end{align*}
+
+      Let $\gamma = \frac{\beta}{\alpha}$ and $r = \alpha \delta_b + (1 - \alpha) \delta_w$. Then we have that $r \succ \delta_w$. Applying the Substitution Axiom once more, we obtain
+      \begin{align*}
+        &          & (1 - \gamma) r + \gamma r &\succ (1 - \gamma) \delta_w + \gamma r \\
+        & \implies & r &\succ \delta_w - \gamma \delta_w + \gamma (\alpha \delta_b + (1 - \alpha) \delta_w) \\
+        & \implies & r &\succ \delta_w - \gamma \delta_w + \gamma \alpha \delta_b + \gamma \delta_w - \gamma \alpha \delta_w \\
+        & \implies & r &\succ \delta_w + \beta \delta_b - \beta \delta_w \\
+        & \implies & r &\succ \beta \delta_b + (1 - \beta) \delta_w.
+      \end{align*}
+      \item $(\rightarrow)$ Suppose $\alpha \delta_b + (1 - \alpha)\delta_w \succ \beta \delta_b + (1 - \beta) \delta_w$. For contradiction, suppose that $\beta \geq \alpha$.
+      \begin{enumerate}
+        \item Suppose $\beta = \alpha$. Then $\alpha \delta_b + (1 - \alpha)\delta_w \succ \alpha \delta_b + (1 - \alpha)\delta_w$, violating asymmetry. $(\contra)$.
+        \item Then $\beta > \alpha$. By the cases above, we have that $\beta \delta_b + (1 - \beta) \delta_w \succ \alpha \delta_b + (1 - \alpha)\delta_w$, also violating assymetry. $(\contra)$.
+      \end{enumerate}
+    \end{enumerate}
+  \end{enumerate}
+\end{proof}
+(A special thanks to Eric Pacuit for a clear explanation of what I was missing from the above proof.)
+%
+% Problem 1(b)
+%
+\begin{thm} \label{lemma 2}
+  For any lottery $p \in P$, there exists $\alpha \in [0,1]$ such that $p \sim \alpha \delta_b + (1 - \alpha) \delta_w$.
+\end{thm}
+\begin{proof}
+  Let $p \in P$.
+  \begin{enumerate}
+    \item Suppose $p \sim \delta_b$. Then $\alpha = 1$ satisfies the property. Similarly, for $p \sim \delta_w$, $\alpha = 0$ is sufficient.
+    \item Suppose $p \in P \backslash \{ \delta_b, \delta_w \}$. Let us define $\alpha = \inf \{ \beta \mid \beta \delta_b + (1 - \beta) \delta_w \succ p \}$. We claim that $\alpha \delta_b + (1 - \alpha)\delta_w \sim p$.
+    \begin{enumerate}
+      \item Suppose $r = \alpha \delta_b + (1 - \alpha)\delta_w \succ p$. Then $r \succ p \succ \delta_w$. By the Archimedean Axiom, there exist $\gamma_1, \gamma_2 \in (0,1)$ such that $\gamma_1 r + (1 - \gamma_1) \delta_w \succ p \succ \gamma_2 r + (1 - \gamma_2) \delta_w$.
+      Applying the Substitution Axiom, we have that $r \succ \gamma_1 r + (1 - \gamma_1) \delta_w$. Observe that
+      \begin{align*}
+        \gamma_1 r + (1 - \gamma_1) \delta_w &= \gamma_1 (\alpha \delta_b + (1 - \alpha)\delta_w) + \delta_w - \gamma_1 \delta_w \\
+        &= \gamma_1 \alpha \delta_b + \gamma_1 (1 - \alpha)\delta_w + \delta_w - \gamma_1 \delta_w \\
+        &= \gamma_1 \alpha \delta_b + \gamma_1 \delta_w - \gamma_1 \alpha \delta_w + \delta_w - \gamma_1 \delta_w \\
+        &= \gamma_1 \alpha \delta_b - \gamma_1 \alpha \delta_w + \delta_w \\
+        &= \gamma_1 \alpha \delta_b (1 - \gamma_1 \alpha)\delta_w.
+      \end{align*}
+      By applying (\ref{vN-M1}), $\alpha > \gamma_1 \alpha$, but $\gamma_1 \alpha \in \{ \beta \mid \beta \delta_b + (1 - \beta) \delta_w \succ p \}$. $(\contra)$.
+      \item Suppose $p \succ r$. Then we have that $\delta_b \succ p \succ r$. Applying the Archimedean Axiom, there exists $\gamma \in (0,1)$ such that $p \succ \gamma \delta_b + (1 - \gamma) r$. Applying the Substitution Axiom, we find that $\gamma \delta_b + (1 - \gamma) r \succ r$. Observe that
+      \begin{align*}
+        \gamma \delta_b + (1 - \gamma) r &= \gamma \delta_b + r - \gamma r \\
+        &= \gamma \delta_b + \alpha \delta_b + (1 - \alpha) \delta_w - \gamma (\alpha \delta_b + (1 - \alpha) \delta_w) \\
+        &= \gamma \delta_b + \alpha \delta_b + \delta_w - \alpha \delta_w - \gamma \alpha \delta_b - \gamma \delta_w + \gamma \alpha \delta_w \\
+        &= (\gamma + \alpha - \gamma \alpha) \delta_b + (1 - \alpha - \gamma + \gamma \alpha)\delta_w. \\
+      \end{align*}
+      We claim that $(\gamma + \alpha - \gamma \alpha) \in [0,1]$.
+      \begin{enumerate}
+        \item Suppose $(\gamma + \alpha - \gamma \alpha) > 1$. Then
+        \begin{align*}
+          &           & (\gamma + \alpha - \gamma \alpha) &> 1 \\
+          & \implies  & (\gamma - \gamma \alpha) &> 1 - \alpha \\
+          & \implies  & (1 - \alpha)\gamma &> 1 - \alpha \\
+          & \implies  & \gamma &> 1.
+        \end{align*}
+        $(\contra)$.
+        \item Suppose $(\gamma + \alpha - \gamma \alpha) < 0$. Then
+        \begin{align*}
+          &          & (\gamma + \alpha - \gamma \alpha) &< 0 \\
+          & \implies & (\gamma - \gamma \alpha) &< -\alpha \\
+          & \implies & (1 - \alpha)\gamma &< -\alpha \\
+          & \implies & \gamma &< -\frac{\alpha}{1 - \alpha}.
+        \end{align*}
+        $(\contra)$.
+      \end{enumerate}
+      Applying (\ref{vN-M1}), $(\gamma + \alpha - \gamma \alpha) > \alpha$. Then $(\gamma + \alpha - \gamma \alpha) \not \in \{ \beta \mid \beta \delta_b + (1 - \beta) \delta_w \succ p \}$ but $(\gamma + \alpha - \gamma \alpha) > \alpha$.
+      Hence, $\alpha$ is not the greatest lower bound. $(\contra)$.
+    \end{enumerate}
+  \end{enumerate}
+\end{proof}
+%
+% Problem 1(c)
+%
+\begin{thm}\label{lemma 3}
+  If $p \sim q$, $r \in P$, and $\alpha \in [0,1]$, then $\alpha p + (1 - \alpha)r \sim \alpha q + (1 - \alpha)r$.
+\end{thm}
+\noindent Let us prove some preliminary results to aid in the read ability of this proof. Two of these lemmas are presented earlier in the book without proof.
+\begin{lem} \label{lem1c.1}
+  If $p \sim q$, $r \succ p$, $q \succ s$, for $p, q, r, s \in P$, then $r \succ q$ and $p \succ s$.
+\end{lem}
+\begin{proof}
+  Suppose $p \sim q$, $r \succ p$, $q \succ s$, for $p, q, r, s \in P$. Then $p \not \succ q$ and $q \not \succ p$.
+  \begin{enumerate}
+    \item Since $r \succ p$, by negative transitivity, either $r \succ q$ or $q \succ p$. As the latter implies a contradiction, the former obtains.
+    \item Since $q \succ s$, by negative transitivity, either $q \succ p$ or $p \succ s$. As the former implies a contradiction, the latter obtains.
+  \end{enumerate}
+\end{proof}
+\begin{lem} \label{lem1c.2}
+  If $p \succ q$, $r \succ s$, and $\alpha \in [0,1]$, then $\alpha p + (1 - \alpha)r \succ \alpha q + (1 - \alpha)s$.
+\end{lem}
+\begin{proof}
+  Suppose that $p \succ q$, $r \succ s$. Observe that if $\alpha = 1$ or $\alpha = 0$, then the result follows immediately. So we will suppose that $\alpha \in (0,1)$. By the Substitution Axiom, $\alpha p + (1 - \alpha)r \succ \alpha q + (1 - \alpha)r$ and $(1 - \alpha)r + \alpha q \succ ( 1 - \alpha )s + \alpha q$.
+  Since $\succ$ is transitive, $\alpha p + (1 - \alpha)r \succ \alpha q + (1 - \alpha)s$.
+\end{proof}
+\begin{lem} \label{lem1c.3}
+  If $p \sim q$ and $\alpha \in [0,1]$, then $\alpha p + (1 - \alpha)q \sim p$.
+\end{lem}
+\begin{proof}
+  Suppose $p \sim q$ and $\alpha \in [0,1]$. Let $r = \alpha p + (1 - \alpha)q$. For contradiction, suppose either $r \succ p$ or $p \succ r$.
+  \begin{enumerate}
+    \item Suppose $r \succ p$. By (\ref{lem1c.1}), $r \succ q$. By (\ref{lem1c.2}),
+    \begin{align*}
+      &           & \alpha r + (1 - \alpha)r &\succ \alpha p + (1 - \alpha)q \\
+      & \implies   & r &\succ r
+    \end{align*}
+    $(\contra)$.
+    \item Suppose $p \succ r$. By (\ref{lem1c.1}), $q \succ r$. By (\ref{lem1c.2}),
+    \begin{align*}
+      &           & \alpha p + (1 - \alpha)q  &\succ \alpha r + (1 - \alpha)r \\
+      & \implies   & r &\succ r
+    \end{align*}
+    $(\contra)$.
+  \end{enumerate}
+\end{proof}
+\begin{proof}
+  Suppose $p \sim q$, $r \in P$, and $\alpha \in [0,1]$. Observe that if $\alpha = 1$ or $\alpha = 0$, then the result follows immediately.
+  We will suppose that $\alpha \in (0,1)$.
+  \begin{enumerate}
+    \item Suppose $p \sim r$. Then by (\ref{lem1c.3}) $\alpha p + (1 - \alpha)r \sim p$ and $\alpha p + (1 - \alpha)r \sim q$. Since $\sim$ is transitive, $\alpha p + (1- \alpha)r \sim \alpha q + (1 - \alpha)r$.
+    \item Suppose $p \succ r$.
+    \begin{enumerate}
+      \item For contradiction, suppose $\alpha q + (1 - \alpha)r \succ \alpha p + (1 - \alpha)r$. By the Substitution Axiom, we have that $\alpha p + (1 - \alpha)r \succ r$.
+      By (\ref{lem1c.2}), there exists $\beta \in [0,1]$ such that
+      \begin{align*}
+        &           & \alpha p + (1 - \alpha)r &\sim (1 - \beta)r + \beta[\alpha q + (1 - \alpha)r] \\
+        & \implies  & \alpha p + (1 - \alpha)r &\sim \alpha \beta q + (1 - \alpha \beta)r.
+      \end{align*}
+      By (\ref{lem1c.1}), we have that $q \succ r$. Then, by the Substitution Axiom, $q \succ \beta q + (1 - \beta)r$. Then by (\ref{lem1c.1}), $p \succ \beta q + (1 - \beta)r$. By the Substitution Axiom,
+      \begin{align*}
+        &           & \alpha p + (1 - \alpha)r &\succ \alpha[\beta q + (1 - \beta)r] + (1 - \alpha)r \\
+        & \implies  & \alpha p + (1 - \alpha)r &\succ \alpha \beta q + (1 - \alpha \beta)r.
+      \end{align*}
+      $(\contra)$
+      \item For the case in which $\alpha p + (1 - \alpha)r \succ \alpha q + (1 - \alpha)r$, switch the roles of $p, q$ and the argument follows.
+      \end{enumerate}
+    \item The case for $r \succ p$ follows similarly.
+  \end{enumerate}
+\end{proof}
+%
+% Problem 1(d)
+%
+\begin{thm}
+  Let $u(x) \in [0,1]$ be defined as $\delta_x \sim u(x)\delta_b + (1 - u(x))\delta_w$. For $u:X \rightarrow \RR$, for $p \in P$, $$p \sim \sum_{x \in supp(p)} u(x)p(x) \delta_b + \left( 1 - \sum_{x \in supp(p)}u(x)p(x) \right) \delta_w.$$
+\end{thm}
+\begin{proof}
+  Let $n$ denote $\abs{supp(p)}$, the cardinality of $supp(p)$. We proceed by induction on $n$. \\
+  \textbf{Base Case}: Suppose $n = 1$. Then $supp(p) = \{ x_1, \}, x_1 \in X$. Then $p(x_1) = 1$. We know that $u(x)$ is defined so that $\delta_{x_1} \sim u(x_1)\delta_b + (1 - u(x_1))\delta_w$. Observe that
+  \begin{align*}
+    p &\sim \delta_{x_1} \\
+    &= \delta_{x_1}p(x_1) \\
+    &\sim (u(x_1)\delta_b + (1 - u(x_1))\delta_w)p(x_1), \text{ by (\ref{lemma 3}),}  \\
+    &\sim u(x_1)p(x_1)\delta_b + (p(x_1) - u(x_1)p(x_1))\delta_w \\
+    &\sim u(x_1)p(x_1)\delta_b + (1 - u(x_1)p(x_1))\delta_w,
+  \end{align*}
+  \textbf{Inductive Step}: Suppose that the claim holds for $n \leq k - 1$, and, for $p \in P$, $n = k$. Then $supp(p) = \{x_1, \ldots x_{k} \}$. So $\sum_{i = 1}^{k}p(x_i) = 1$ and $\sum_{i = 1}^{k-1}p(x_1) = 1 - p(x_k)$. Observe
+  \begin{align*}
+    p &\sim p(x_1)\delta_{x_1} + \cdots + p(x_{k-1})\delta_{x_{k-1}} + p(x_k)\delta_{d_k} \\
+    &= (1 - p(x_k)) \left( \frac{p(x_1)}{1 - p(x_k)}\delta_{x_1} + \cdots + \frac{p(x_{k-1})}{1 - p(x_k)}\delta_{x_{k-1}} \right) + p(x_k)\delta_{x_k} \\
+    &= (1 - p(x_k) \sum_{i = 1}^{k - 1} \frac{p(x_i)}{1 - p(x_k)}\delta_{x_i} + p(x_k)\delta_{x_k}.
+  \end{align*}
+  Let $q = \sum_{i = 1}^{k - 1} \frac{p(x_i)}{1 - p(x_k)}\delta_{x_i}$, where $q(x_i) = \frac{p(x_i)}{1 - p(x_k)}$. Then we have that $q \in P$ and $p \sim (1 - p(x_k))q + p(x_k)\delta_{d_k}$.
+  By the inductive hypothesis, since $\abs{supp(q) = k-1}$, $q \sim \sum_{i = 1}^{k - 1}u(x_i)q(x_i)\delta_b + (1 - \sum_{i = 1}^{k - 1}u(x_i)q(x_i))\delta_w$. Then by (\ref{lemma 2}), $\delta_{x_k} \sim u(x_k)\delta_b + (1 - u(x_k))\delta_w$.
+  Observe that
+  \begin{align*}
+    (1 - p(x_k))q + p(x_k)\delta_{x_k} &\sim (1 - p(x_k))\left(\sum_{i = 1}^{k - 1}u(x_i)q(x_i)\delta_b + \left(1 - \sum_{i = 1}^{k - 1}u(x_i)q(x_i)\right)\delta_w\right)  \\ &+ \ p(x_k)\delta_{x_k}, \text{ by (\ref{lemma 3}),} \\
+    &\sim \left(\sum_{i = 1}^{k - 1}u(x_i)p(x_i)\delta_b + \left(1 - p(x_k) - \sum_{i = 1}^{k - 1}u(x_i)p(x_i)\right)\delta_w\right) +  p(x_k)\delta_{x_k} \\
+    &\sim \left(\sum_{i = 1}^{k - 1}u(x_i)p(x_i)\delta_b + \left(1 - p(x_k) - \sum_{i = 1}^{k - 1}u(x_i)p(x_i)\right)\delta_w\right) \\ &+  p(x_k)(u(x_k)\delta_b + (1 - u(x_k))\delta_w), \text{ by (\ref{lemma 3}),} \\
+    &\sim \sum_{i = 1}^{k - 1}u(x_i)p(x_i)\delta_b + p(x_k)u(x_k)\delta_b + \delta_w - \sum_{i = 1}^{k - 1}u(x_i)p(x_i)\delta_w - u(x_k)p(x_k)\delta_w \\
+    &\sim \sum_{i = 1}^{k}u(x_i)p(x_i)\delta_b + \delta_w - \sum_{i = 1}^{k}u(x_i)p(x_i)\delta_w\\
+    &\sim \sum_{i = 1}^{k}u(x_i)p(x_i)\delta_b + (1 - \sum_{i = 1}^{k}u(x_i)p(x_i))\delta_w.
+  \end{align*}
+\end{proof}
+%
+% Problem 1(e)
+%
+\begin{thm}
+  The previous theorem holds even if there are no best and worst prizes.
+\end{thm}
+\begin{proof}
+  Suppose there are two elements of $P$ that exhibit strict preference; otherwise, the result follows trivially. Let us denote these elements $b, w$. It is sufficient to provide a $u(\cdot)$ with the desired properties. Since $b \succ w$, let define $u(b) = 1$ and $u(w) = 0$. So for $x \in X$, either $\delta_x \succ \delta_b$, $\delta_b \succeq \delta_x \succeq \delta_w$, or $\delta_w \succ \delta_x$.
+  \begin{enumerate}
+    \item Suppose $\delta_x \succ \delta_b$. Since $\delta_x \succ \delta_b \succ \delta_w$, by (\ref{lemma 2}), $\delta_b \sim \alpha \delta_x + (1 - \alpha)\delta_w, \alpha \in (0,1)$. Let us propose that $u(x) = \frac{1}{\alpha}$. By (\ref{lemma 3}),
+    \begin{align*}
+      \frac{1}{\alpha}\delta_b + \left(1 - \frac{1}{\alpha}\right)\delta_w &\sim \frac{1}{\alpha}\alpha \delta_x + (1 - \alpha)\delta_w)\ + \left(1 - \frac{1}{\alpha}\right)\delta_w \\
+      &= \delta_x + \frac{1}{\alpha}\delta_w - \delta_w + \delta_w - \frac{1}{\alpha}\delta_w \\
+      &= \delta_x.
+    \end{align*}
+    \item Suppose $\delta_b \succeq \delta_x \succeq \delta_w$. By (\ref{lem1c.3}) and (\ref{lemma 2}) there exists a unique $\alpha \in [0,1]$ such that $\delta_x \sim \alpha \delta_b + (1 - \alpha)\delta_w$. Then $u(x) = \alpha$ is sufficient.
+    \item Suppose $\delta_w \succ \delta_x$. Since $\delta_b \succ \delta_w \succ \delta_x$, by (\ref{lemma 2}), $\delta_w \sim \alpha \delta_b + (1 - \alpha)\delta_w$. Let us propose that $u(x) = \frac{-\alpha}{1 - \alpha}$. By (\ref{lemma 3}),
+    \begin{align*}
+      \left( 1 - \frac{-\alpha}{1 - \alpha}\right) \delta_w + \frac{-\alpha}{1 - \alpha}\delta_b &\sim \left( 1 - \frac{-\alpha}{1 - \alpha}\right) (\alpha \delta_b + (1 - \alpha)\delta_x) + \frac{-\alpha}{1 - \alpha}\delta_b \\
+      &= (\alpha \delta_b + (1 - \alpha)\delta_x) + (\alpha \delta_b + (1 - \alpha)\delta_x)\frac{\alpha}{1 - \alpha} - \frac{\alpha}{1 - \alpha}\delta_b \\
+      &= \alpha \delta_b + (1 - \alpha)\delta_x + \frac{\alpha^2}{1 - \alpha}\delta_b + \alpha\delta_x - \frac{\alpha}{1 - \alpha}\delta_b \\
+      &= \frac{\alpha - \alpha^2}{1 - \alpha} \delta_b + \delta_x - \alpha\delta_x + \frac{\alpha^2}{1 - \alpha}\delta_b + \alpha\delta_x - \frac{\alpha}{1 - \alpha}\delta_b \\
+      &= \delta_x.
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+%
+% Problem 1(f)
+%
+\begin{thm}
+  If $u(\cdot)$ is an expected utility representation for $\succ$ on $X$ then $u(\cdot)$ is unique up to a positive linear transformation.
+\end{thm}
+\begin{proof}
+  Suppose $u,v: X \rightarrow \RR$ both give expected utility representations for $\succ$ on $X$. For contradiction, suppose $v(\cdot) \not = au(\cdot) + b, a \in \RR^+, b \in \RR$. Suppose $x, y, z \in X$ such that $\delta_x \succ \delta_y \succ \delta_z$; otherwise, the result is trivial. Then $u(x) > u(y) > u(z)$ and $v(x) > v(y) > v(z)$.
+  Then there exists a unique $\alpha \in (0,1)$ such that $u(y) = \alpha u(x) + (1 - \alpha)u(z)$. This implies $\delta_y \sim \alpha \delta_x + (1 - \alpha)\delta_z$. Since $v(\cdot)$ is a expected utility representation of $\succ$, $v(y) = \alpha v(x) + (1 - \alpha)v(z)$. Solving for $\alpha$, we find that $\frac{u(y) - u(z)}{u(x) - u(z)} = \alpha = \frac{v(y) - v(z)}{v(x) - v(z)}$.
+  Observe that
+  \begin{align*}
+    &          & \frac{u(y) - u(z)}{u(x) - u(z)} &= \frac{v(y) - v(z)}{v(x) - v(z)} \\
+    & \implies & (v(x) - v(z))(u(y) - u(z)) &= (u(x) - u(z))(v(y) - v(z)) \\
+    & \implies & u(y)v(x) - u(y)v(z) - u(z)v(x) + u(z)v(z) &= u(x)v(y) - u(z)v(y) - u(x)v(z) + u(z)v(z) \\
+    & \implies & u(y)v(x) - u(y)v(z) - u(z)v(x) &= u(x)v(y) - u(z)v(y) - u(x)v(z) \\
+    & \implies & u(y)(v(x) - v(z)) - u(z)v(x) + u(x)v(z) &= (u(x) - u(z))v(y) \\
+    & \implies & u(y)\left(\frac{v(x) - v(z)}{u(x) - u(z)}\right) - \frac{u(z)v(x) + u(x)v(z)}{u(x) - u(z)} &= v(y) \\
+  \end{align*}
+  Since $v(x) - v(z) > 0$ and $u(x) - u(z) > 0$, we have that $\frac{v(x) - v(z)}{u(x) - u(z)}$. $(\contra)$.
+\end{proof}
+%
+% Problem 2
+%
+
+
+
+
+\end{document}
