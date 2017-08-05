@@ -15,6 +15,7 @@
 \newtheorem{defn}[thm]{Definition}
 \theoremstyle{remark}
 \newtheorem{rem}[thm]{Remark}
+\newtheorem{prob}{Problem}[section]
 
 % Shortcuts.
 % One can define new commands to shorten frequently used
@@ -289,8 +290,217 @@ Let $X$ denote the set of prizes and $b \in X$ be the best prize and $w \in X$ b
 %
 % Problem 2
 %
-
-
-
+\section{}
+\begin{thm}
+  Suppose $p' \sim \frac{2}{3}\delta_{\$ 10}$ + $\frac{1}{3}\delta_{\$ 20}$ and $p \sim \frac{1}{3}\delta_{\$ 5} + \frac{5}{9}\delta_{\$ 15} + \frac{1}{9}\delta_{\$ 30}$.
+  Then a risk averse expected utility maximizer will have $p' \succeq p$.
+\end{thm}
+Let us first prove a helpful lemma that generalizes (\ref{lem1c.2}).
+\begin{lem}\label{lem 2.1}
+  If $p \succeq q, r \succeq s, \alpha \in [0,1]$, then $\alpha p + (1 - \alpha)r \succeq \alpha q + (1 - \alpha)s$.
+\end{lem}
+\begin{proof}
+  Observe if $\alpha = 1$ or $\alpha = 0$ then the result is trivial. Suppose $\alpha \in (0,1)$.
+  \begin{enumerate}
+    \item Suppose $p \succ q$. By the Substitution Axiom, $\alpha p + (1 - \alpha)r \succ \alpha q + (1 - \alpha)r$.
+    \begin{enumerate}
+      \item Suppose $r \succ s$. By the Substitution Axiom, $(1 - \alpha)r + \alpha q \succ (1 - \alpha)s + \alpha q$. Since $\succ$ is transitive, we have that $\alpha p + (1 - \alpha)r \succ (1 - \alpha)s + \alpha q$, implying $\alpha p + (1 - \alpha)r \succeq (1 - \alpha)s + \alpha q$.
+      \item Suppose $r \sim s$. By (\ref{lemma 3}), $(1 - \alpha)r + \alpha q \sim (1 - \alpha)s + \alpha q$. By (\ref{lem1c.1}), $\alpha p + (1 - \alpha)r \succ (1 - \alpha)s + \alpha q$, implying $\alpha p + (1 - \alpha)r \succeq (1 - \alpha)s + \alpha q$.
+    \end{enumerate}
+    \item Suppose $p \sim q$. By (\ref{lemma 3}), $\alpha p + (1 - \alpha)r \sim \alpha q + (1 - \alpha)r$.
+    \begin{enumerate}
+      \item Suppose $r \succ s$. By the Substitution Axiom, $(1 - \alpha)r + \alpha q \succ (1 - \alpha)s + \alpha q$. By (\ref{lem1c.1}), $\alpha p + (1 - \alpha)r \succ (1 - \alpha)s + \alpha q$, implying $\alpha p + (1 - \alpha)r \succeq (1 - \alpha)s + \alpha q$.
+      \item Suppose $r \sim s$. By (\ref{lemma 3}), $(1 - \alpha)r + \alpha q \sim (1 - \alpha)r + \alpha q$. Since $\sim$ is transitive, $\alpha p + (1 - \alpha)r \succ (1 - \alpha)s + \alpha q$, implying $\alpha p + (1 - \alpha)r \succeq (1 - \alpha)s + \alpha q$.
+    \end{enumerate}
+  \end{enumerate}
+\end{proof}
+\begin{proof}
+  Since the agent is risk averse, the agent's utility function over dollar values has the following property: for $p \in P, \delta_{E[p]} \succeq p$. Let us define $q = \frac{1}{2}\delta_{\$ 5} + \frac{1}{2}\delta_{\$ 15}$ and $r = \frac{2}{3}\delta_{\$ 15} + \frac{1}{3}\delta_{\$ 30}$.
+  Observe that $E[q] = \$ 10, E[r] = \$ 20$. Then $\delta_{E[q]} \succeq q$ and $\delta_{E[r]} \succeq r$, since the agent is risk averse. This implies that $\delta_{\$ 10} \succeq q$ and $\delta_{\$ 20} \succeq r$.
+  By (\ref{lem 2.1}), $\frac{2}{3}\delta_{\$ 10} + \frac{1}{3}\delta_{\$ 20} \succeq \frac{2}{3}q + \frac{1}{3}r$.
+  Observe that
+  \begin{align*}
+    p' &\sim \frac{2}{3}\delta_{\$ 10} + \frac{1}{3}\delta_{\$ 20} \\
+    &\succeq \frac{2}{3}q + \frac{1}{3}r \\
+    &= \frac{2}{3}(\frac{1}{2}\delta_{\$ 5} + \frac{1}{2}\delta_{\$ 15}) + \frac{1}{3}(\frac{2}{3}\delta_{\$ 15} + \frac{1}{3}\delta_{\$ 30}) \\
+    &= \frac{1}{3}\delta_{\$ 5} + \frac{5}{9}\delta_{\$ 15} + \frac{1}{9}\delta_{\$ 30} \\
+    &\sim p.
+  \end{align*}
+  By transitivity of $\succeq$, $p' \succeq p$.
+\end{proof}
+%
+% Problem 3(a)
+%
+\section{}
+\begin{prob}
+Suppose an agent in a two good world has the ordinal utility function $u(x_1, x_2) = x_1 + x_2$ and income $Y > 0$. Let the agent's von Neumann-Morgenstern utility function be given by $f(u(x))$, where $f$ is a strictly increasing function. Suppose prices are not fixed and $p = (3,1), p' = (1,3)$ are two price vectors that occur with probability $\frac{1}{2}$. Show that this agent prefers risky prices to centain prices.
+\end{prob}
+\begin{proof}[Solution]
+  Let $Y$ be fixed. For each price vector $p$, let us construct the optimal given income, i.e., construct the indirect utility function $\nu(p, Y)$. Define $i$ as the index of the value satisfying $\min \{ p_1, p_2 \}$.
+  Then the optimal bundle at prices $p$ contains only $\frac{Y}{p_i}$ of good $x_i$. So $\nu(p, Y) = \frac{Y}{p_i}$. Likewise, at prices $p'$ the optimal bundle given by $\nu(p', Y) = \frac{Y}{p'_i}$. The intuition is that the agent is buying only the cheaper good and as much as the agent can afford. Let $\rho(p)$ denote the probability that prices $p$ obtain. The expected utility at risky prices is given by
+  \begin{align}
+    \nu(p, Y)\rho(p) + \nu(p', Y)\rho(p') &= \frac{Y}{p_i}\frac{1}{2} + \frac{Y}{p'_i}\frac{1}{2} \\
+    &= \frac{Y}{2} + \frac{Y}{2} \\
+    &= Y.
+  \end{align}
+  On the other hand, let $q = \frac{1}{2}p + \frac{1}{2}p' = (2,2)$. The $\nu(q, Y) = \frac{Y}{q_1} = \frac{Y}{q_2}$, since the price is the same for each good. So the expected utility is given by $\frac{Y}{2}$. Since $f$ is strictly increaseing, $f(Y) > f(\frac{Y}{2})$. Hence, risky prices are preferred to certain prices in this case.
+\end{proof}
+%
+% Problem 3(b)
+%
+\begin{prob}
+  Coming soon!
+\end{prob}
+%
+% Problem 4
+%
+\section{}
+\begin{prob}
+  Suppose an agent has a concave utility function for net income that is not necessairly differentiable. What changes does this cause for the analysis of insurance demand?
+\end{prob}
+\begin{proof}[Solution]
+  This is a vague question where the obvious answers are more mathematically sophisticated than the general level of the text. Recall that a concave function may have countably many points of nondifferentiability. As a result, the derivative may not be everywhere defined. Thus, the methods in the text cannot be applied straightforwardly and we must move on to generalizations of the derivative or non-derivative methods to proceed. This seems to be a reasonable answer though it's possible that I have missed the point of the exercise.
+\end{proof}
+%
+% Problem 5
+%
+\section{}
+Coming soon!
+%
+% Problem 6
+%
+\section{}
+Suppose an agent has $\$ W$ to invest between a sure thing and a risky asset. The sure thing has a return of $\$ r > 1$. The risky asset returns a random ammount $\theta$, where $\theta$ is a simple lottery on $(0, \infty)$ with distribution $\pi$. Suppose $E \theta > r$ but $\pi (\theta < r) > 0$. Suppose the agent has the ability to short sell, i.e., the agent's utility function is defined for negative income.
+The agent has a constant coefficient of absolute risk aversion $\lambda > 0$, i.e., the agent allocates his funds to maximize the expectation of $-e^{- \lambda Y}$ where $Y$ is the net payoff from the constructed portfolio. We write $\alpha(W, \lambda)$ for the optimal amount to invest in the risk asset.
+\begin{thm}
+  For all $W, \lambda$, $\alpha(W, \lambda) < \infty$.
+\end{thm}
+\begin{proof}
+  Suppose for $W, \lambda$, $\alpha(W, \lambda)$ is infinite, i.e., $\arg \max_\alpha E \left[-e^{- \lambda Y} \right]$ has no solution. Observe that
+  \begin{align*}
+    E \left[-e^{- \lambda Y} \right] &= E \left[-e^{- \lambda ((W - \alpha)r + \alpha \theta)} \right] \\
+    &= E \left[-e^{- \lambda (Wr + \alpha (\theta - r))} \right] \\
+    &= \sum_{x \in supp(\pi)} -e^{- \lambda (Wr + \alpha (x - r))} \pi(x).
+  \end{align*}
+  Since the maximum is not defined with $\alpha \rightarrow \infty$, consider $\lim_{\alpha \rightarrow \infty} \sum_{x \in supp(\pi)} -e^{- \lambda (Wr + \alpha (x - r))}$. By assumption, there exists $x^* \in supp(\pi)$ such that $x^* < r$.
+  For this term in the summation, $\lim_{\alpha \rightarrow \infty} -e^{- \lambda(Wr + \alpha(x - r))} = \lim_{\alpha \rightarrow \infty} -e^{\alpha} = - \infty$.
+  Then this expected value equals $- \infty$, if it is defined. But $\alpha = 0$ yields
+  \begin{align*}
+    \sum_{x \in supp(\pi)} -e^{- \lambda (Wr + \alpha (x - r))} \pi(x) &= \sum_{x \in supp(\pi)} -e^{- \lambda Wr } \pi(x) \\
+    &= \sum_{x \in supp(\pi)} -e^{- \lambda Wr } \pi(x) \\
+    &= -e^{- \lambda Wr } \\
+    &> - \infty.
+  \end{align*}
+  So the supposed $\alpha$ does not maximize the expected value. $(\contra)$.
+\end{proof}
+\begin{thm}
+  $\alpha(W, \lambda)$ is independent of $W$.
+\end{thm}
+\begin{proof}
+  Let $\lambda > 0$ be given and $W = \beta Z, \beta \in \RR^+$. Let $\gamma_W = \alpha(W, \lambda)$ and $\gamma_Z = \alpha(Z, \lambda)$. Define the functions $f(\alpha) = E \left[-e^{- \lambda ((W - \alpha)r + \alpha \theta)} \right]$ and $g(\alpha) = E \left[-e^{- \lambda ((Z - \alpha)r + \alpha \theta)} \right]$.
+  Then $f(\gamma_W) \geq f(\alpha), \alpha \in [0, \infty )$ and $g(\gamma_Z) \geq g(\alpha), \alpha \in [0, \infty )$.
+  Let $\eta = e^{\lambda (\beta - 1)Zr}$. Then $\eta > 0$. Observe that
+  \begin{align*}
+    &       & g(\gamma_Z) &\geq g(\alpha) \\
+    & \iff  & g(\gamma_Z)\eta &\geq g(\alpha)\eta \\
+    & \iff  & \sum_{x \in supp(\pi)} -e^{- \lambda (Zr + \gamma_Z (x - r))} \pi(x) \eta &\geq \sum_{x \in supp(\pi)} -e^{- \lambda (Zr + \alpha (x - r))} \pi(x) \eta \\
+    & \iff  & \sum_{x \in supp(\pi)} -e^{- \lambda (Zr + \gamma_Z (x - r))}  \pi(x) e^{\lambda (\beta - 1)Zr} &\geq \sum_{x \in supp(\pi)} -e^{- \lambda (Zr + \alpha (x - r))} \pi(x) e^{\lambda (\beta - 1)Zr} \\
+    & \iff  & \sum_{x \in supp(\pi)} -e^{- \lambda (Zr + \gamma_Z (x - r)) + \lambda (\beta - 1)Zr}  \pi(x) &\geq \sum_{x \in supp(\pi)} -e^{- \lambda (Zr + \alpha (x - r)) + \lambda (\beta - 1)Zr} \pi(x) \\
+    & \iff  & \sum_{x \in supp(\pi)} -e^{- \lambda (\beta Zr + \gamma_Z (x - r))}  \pi(x) &\geq \sum_{x \in supp(\pi)} -e^{- \lambda (\beta Zr + \alpha (x - r))} \pi(x) \\
+    & \iff  & \sum_{x \in supp(\pi)} -e^{- \lambda (Wr + \gamma_Z (x - r))}  \pi(x) &\geq \sum_{x \in supp(\pi)} -e^{- \lambda (Wr + \alpha (x - r))} \pi(x) \\
+    & \iff  & f(\gamma_Z) &\geq f(\alpha).
+  \end{align*}
+  Then $\gamma_Z$ maximizes $f$.
+\end{proof}
+\begin{thm}
+  $\alpha(W, \lambda)$ is nonincreasing in $\lambda$.
+\end{thm}
+\begin{proof}
+Coming soon!
+\end{proof}
+%
+% Problem 7
+%
+\section{}
+\begin{thm}
+  Consider the consumer's problem with one risky asset. If the consumer's vNM utility function is strictly concave then the consumer's problem has a unique solution, if it has a solution.
+\end{thm}
+\begin{proof}
+  The consumer's problem with one risky asset is $$\mathcal{P} = \max_\alpha \sum_{\theta \in supp(\pi)} \nu(\alpha(\theta - r) + rW)\pi(\theta)$$.
+  Suppose $\alpha_1, \alpha_2$ are both solutions to $\mathcal{P}$. Let $\gamma \in (0,1)$. Then for $\theta \in supp(\pi)$,
+  \begin{align*}
+    \nu((\gamma \alpha_1 + (1 - \gamma)\alpha_2)(\theta - r) + rW) &= \nu(\gamma \alpha_1(\theta - r) + \gamma rW + (1 - \gamma)\alpha_2(\theta - r) + (1 - \gamma)rW) \\
+    &= \nu(\gamma(\alpha_1(\theta - r) + rW) + (1 - \gamma)(\alpha_2(\theta - r) + rW)) \\
+    &> \gamma \nu(\alpha_1(\theta - r) + rw) + (1 - \gamma)\nu(\alpha_2(\theta - r) + rW).
+  \end{align*}
+  The strict inequality in the third line follows from strict concavity of $\nu$. Observe that
+  \begin{align*}
+    & \sum_{\theta \in supp(\pi)} \nu((\gamma \alpha_1 + (1 - \gamma)\alpha_2)(\theta - r) + rW)\pi(\theta) \\
+    &> \sum_{\theta \in supp(\pi)} (\gamma \nu(\alpha_1(\theta - r) + rw) + (1 - \gamma)\nu(\alpha_2(\theta - r) + rW)) \pi(\theta) \\
+    &= \sum_{\theta \in supp(\pi)} \gamma \nu(\alpha_1(\theta - r) + rw)\pi(\theta) + \sum_{\theta \in supp(\pi)} (1 - \gamma)\nu(\alpha_2(\theta - r) + rW)\pi(\theta) \\
+    &= \gamma \sum_{\theta \in supp(\pi)} \nu(\alpha_1(\theta - r) + rw)\pi(\theta) + (1 - \gamma)\sum_{\theta \in supp(\pi)} \nu(\alpha_2(\theta - r) + rW)\pi(\theta) \\
+    &= \gamma \sum_{\theta \in supp(\pi)} \nu(\alpha_1(\theta - r) + rw)\pi(\theta) + (1 - \gamma)\sum_{\theta \in supp(\pi)} \nu(\alpha_1(\theta - r) + rW)\pi(\theta) \\
+    &= \sum_{\theta \in supp(\pi)} \nu(\alpha_1(\theta - r) + rw)\pi(\theta).
+  \end{align*}
+  Observe that the equality in the fourth line follows since $\alpha_1, \alpha_2$ are both solutions to $\mathcal{P}$. $(\contra)$.
+\end{proof}
+%
+% Problem 8
+%
+\section{}
+\begin{thm}
+  It is possible for an asset to have an expected return less than $r$ and stil be demanded and an expected return greater than $r$ and not be demanded, in the context of multiple assets.
+\end{thm}
+\begin{proof}
+  \begin{enumerate}
+    \item Set $r = 2$. Suppose $(\theta_1, \theta_2) = (1, 5)$ with probability $\frac{1}{10}$ and $(\theta_1, \theta_2) = (5, 1)$ with probability $\frac{9}{10}$.
+    Then the expected return of $\theta_1$ is $1 \left( \frac{1}{10}\right) + 5 \left( \frac{9}{10}\right) = \frac{46}{10} = 4.6$
+    and the expecte return of $\theta_2$ is $5 \left( \frac{1}{10}\right) + 1 \left( \frac{9}{10}\right) = \frac{14}{10} = 1.4 < r$. Observe that
+    \begin{align*}
+      & \nu(1(5-2) + 1(1-2) + 2W) + \nu(1(1-2) + 1(5-2) + 2W) \\
+      &= \nu(2 + 2W) + \nu(2 + 2W) \\
+      &> \nu(2W) + \nu(2W) \\
+      &= \nu(0(3) + 0(-1) + 2W) + \nu(0(-1) + 0(3) + 2W).
+    \end{align*}
+    Hence, $\theta_2$ is demanded some.
+    \item Suppose $\theta_1 > \theta_2$, that $\theta_2$ is demanded at $\alpha_2 > 0$, and the expected return of $\theta_2$ is greater than $r$. Observe that
+    \begin{align*}
+      \nu(\alpha_1 (\theta_1 - r) + \alpha_2 (\theta_2 - r) + rW) &= \nu(\alpha_1 \theta_1 + \alpha_2 \theta_2 + r(W - (\alpha_1 + \alpha_2))) \\
+      &< \nu(\alpha_1 \theta_1 + \alpha_2 \theta_1 + r(W - (\alpha_1 + \alpha_2))) \\
+      &= \nu((\alpha_1 + \alpha_2) \theta_1 + r(W - (\alpha_1 + \alpha_2))) \\
+    \end{align*}
+    Any allocation to $\theta_2$ is better allocated to $\theta_1$. So $\theta_2$ has a return greater than the risk free rate but none the less not demanded.
+  \end{enumerate}
+\end{proof}
+%
+% Problem 9
+%
+\section{}
+\begin{thm}
+  If the returns for two risky assets are statistically independent, then the results obtained in Chapter 3.3 generalize.
+\end{thm}
+\begin{proof}[Solution]
+  This is not difficult just tedious. Observe that since the two assets are statistically independent, then $\pi(\theta) = \pi(\theta_1, \theta_2) = \pi_1(\theta_1)\pi_2(\theta_2)$, where $\pi_1$ is the marginal distribution of $\pi$ with respect to $\theta_1$ and similarly for $\pi_2$.
+  Then define $\theta_m = \min \{ \theta_1, \theta_2 \}$. We may then show the results for this reduced single risky asset.
+\end{proof}
+%
+% Problem 10
+%
+\section{}
+\begin{thm}
+  If we have an \emph{additive across states representation} then for any strictly positive probability distribution $\pi$ on $S$, there is a state-dependent utility function $u: X \times S \rightarrow \RR$ such that subjective state-dependent expectied utility, using this probability distribution $\pi$ and utility function $u$ represents $\succ$.
+\end{thm}
+\begin{proof}
+  Suppose $h \succ h'$. Then $\sum_{s \in S}u'(h(s),s)\pi'(s) > \sum_{s \in S}u'(h'(s),s)\pi'(s)$. Let $\pi$ be a probability distribution on $S$. Define $u(x, s) = \frac{u'(x, s)\pi'(s)}{\pi(s)}$. Observe that
+  \begin{align*}
+    \sum_{s \in S} u(h(s), s) \pi(s) &= \sum_{s \in S} u'(h(s), s)\pi'(s) \\
+    &> \sum_{s \in S} u'(h'(s), s)\pi'(s) \\
+    &= \sum_{s \in S} u(h'(s), s) \pi(s).
+  \end{align*}
+\end{proof}
+%
+% Problem 10
+%
+\section{}
 
 \end{document}
