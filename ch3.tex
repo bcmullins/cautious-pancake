@@ -499,8 +499,188 @@ Coming soon!
   \end{align*}
 \end{proof}
 %
-% Problem 10
+% Problem 11
 %
 \section{}
-
+Suppose we analyze a consumer whose utility function is given by $u(c,n) = \ln(c) + \ln(n)$, where $c$ is today's consumption and $n$ is tomorrow's consumption. We suppose the initial wealth to spend is $\$ 100$.
+\begin{prob}
+  Suppose the consumer is sure to receive $\$ 34$ tomorrow. What is their optimal level of consumption and expected utility?
+\end{prob}
+\begin{proof}[Solution]
+  We are going to solve the following non-linear program:
+  \begin{align*}
+    \max &\ln(c) + \ln(n + 34) &\\
+    Subject \ to \ &c + n \leq 100 & \\
+    & c, n \geq 0. &
+  \end{align*}
+  First, let's compute the Lagrangian:
+  $$\ln(c) + \ln(n + 34) - \lambda_1(c + n - 100) + \lambda_2c + \lambda_3n.$$
+  Next, we obtain our constraints:
+  \begin{align*}
+    &\frac{1}{c} - \lambda_1 + \lambda_2 = 0\\
+    &\frac{1}{n + 34} - \lambda_1 + \lambda_3 = 0 \\
+    &\lambda_1(c + n - 100) = 0 \\
+    &\lambda_2c = 0 \\
+    &\lambda_3n = 0.
+  \end{align*}
+  We know that $\lambda_2 = 0$; otherwise, the first constraint is not defined. Then we have that $\lambda_1 = \frac{1}{c}$.
+  \begin{enumerate}
+    \item Suppose $\lambda_1 = 0$. Then $c$ is unbounded; hence, there is no solution.
+    \item Then $\lambda_1 \neq 0$. Hence, $c + n = 100$.
+    \begin{enumerate}
+      \item Suppose $\lambda_3 = 0$. Then $\lambda_1 = \frac{1}{n + 34}$. So $\frac{1}{c} = \frac{1}{n + 34}$ just in case $c = n + 34$. Then
+      \begin{align*}
+        n + 34 + n &= 100 \\
+        2n &= 66 \\
+        n = 33.
+      \end{align*}
+      Then $c = 67$. So $(67, 33)$ is a candidate point.
+      \begin{itemize}
+        \item Suppose $\lambda_3 \neq 0$. Then $n = 0$. So $c = 100$. Then $(100, 0)$ is a candidate point.
+      \end{itemize}
+    \end{enumerate}
+  \end{enumerate}
+  Now, observe
+  \begin{align*}
+    \ln(67) + \ln(33 + 34) &= 2\ln(67) \\
+    &= \ln(67^2) \\
+    &> \ln(3400) \\
+    &= \ln(100) + \ln(34).
+  \end{align*}
+  So $(67, 33)$ is the optimal point and yields an expected utility of $\ln(4489) \approx 8.409$.
+\end{proof}
+\begin{prob}
+  Suppose that tomorrow's income is a lottery between $\$ 100 $ and $\$ 0$, each with probability one half.
+\end{prob}
+\begin{proof}[Solution]
+  Let us start by noting that there are easier and more difficult ways to deal with this non-linear program. The approach that I follow is a bit tedious, so obvious steps will be skipped for brevity. This applies to the next problem as well. \\
+  We are going to solve the following non-linear program:
+  \begin{align*}
+    \max &\ln(c) + \frac{1}{2}\ln(n) + \frac{1}{2}\ln(n + 100) &\\
+    Subject \ to \ &c + n \leq 100 & \\
+    & c, n \geq 0. &
+  \end{align*}
+  First, let's compute the Lagrangian:
+  $$\ln(c) + \frac{1}{2}\ln(n) + \frac{1}{2}\ln(n + 100) - \lambda_1(c + n - 100) + \lambda_2c + \lambda_3n.$$
+  Next, we obtain our constraints:
+  \begin{align*}
+    &\frac{1}{c} - \lambda_1 + \lambda_2 = 0\\
+    &\frac{1}{2n} + \frac{1}{2n + 100} - \lambda_1 + \lambda_3 = 0 \\
+    &\lambda_1(c + n - 100) = 0 \\
+    &\lambda_2c = 0 \\
+    &\lambda_3n = 0.
+  \end{align*}
+  We begin by observing that $\lambda_2 = 0$. Similarly, $\lambda_3 = 0$. Hence, $\lambda_1 = \frac{1}{c}$ and $\lambda_1 = \frac{1}{2n} + \frac{1}{2n + 100}$. Observe that $\lambda_1 = 0$ yields no solutions, so suppose $\lambda_1 \neq 0$. Then $c + n = 100$. It follows that
+  \begin{align*}
+    \frac{1}{c} &= \frac{1}{2n} + \frac{1}{2n + 200} \\
+    2n(2n + 200) &= c(2n + 200) + 2nc \\
+    4n^2 + 400n &= 4nc + 200c\\
+    4n^2 + 400n &= 4n(100 - n) + 200(100 - n)\\
+    4n^2 + 400n &= 400n - 4n^2 + 20000 - 200n\\
+    8n^2 + 200n - 20000 &= 0\\
+    n^2 + 25n - 2500 &= 0
+  \end{align*}
+  Then $n \approx 39.039$ and $c \approx 60.961$. This yields an approxiamte expected utilty of
+  \begin{align*}
+    \ln(60.961) + \frac{\ln(39.039)}{2} + \frac{\ln(139.039)}{2} &= \ln(60.961) + \ln(\sqrt(39.039)) + \ln(\sqrt(139.039)) \\
+    &= \ln(60.961) + \ln(6.248) + \ln(11.791) \\
+    &= \ln(4491).
+    &\approx 8.41
+  \end{align*}
+\end{proof}
+\begin{prob}
+  Suppose that tomorrow's income is a lottery between $\$0 $, $\$134 $, and $\$100 $ with probabilities $\frac{1}{4}, \frac{1}{2}, \frac{1}{4}$, respectively. How much should the consumer consume today and what is their expected utility?
+\end{prob}
+\begin{proof}[Solution]
+  We will being by solving the following non-linear program:
+  \begin{align*}
+    \max &\ln(c) + \frac{1}{4}\ln(n) + \frac{1}{2}\ln(n + 34) \frac{1}{4}\ln(n + 100) &\\
+    Subject \ to \ &c + n \leq 100 & \\
+    & c, n \geq 0. &
+  \end{align*}
+  Next, we find the Lagrangian:
+  $$\ln(c) + \frac{1}{4}\ln(n) + \frac{1}{2}\ln(n + 34) \frac{1}{4}\ln(n + 100) - \lambda_1(c + n - 100) + \lambda_2c + \lambda_3n.$$
+  We now have the following constraints:
+  \begin{align*}
+    &\frac{1}{c} - \lambda_1 + \lambda_2 = 0 \\
+    &\frac{1}{4n} + \frac{1}{2n + 68} + \frac{1}{4n + 400} - \lambda_1 + \lambda_3 = 0 \\
+    &\lambda_1(c + n - 100) = 0 \\
+    &\lambda_2c = 0 \\
+    &\lambda_3n = 0.
+  \end{align*}
+  Observe that $\lambda_2, \lambda_3 = 0$. So $\lambda_1 = \frac{1}{c}$ and $\lambda_1 = \frac{1}{4n} + \frac{1}{2n+ 68} + \frac{1}{4n + 400}$. Notice that $c + n = 100$. It follows that
+  \begin{align*}
+    \frac{1}{c} &= \frac{1}{4n} + \frac{1}{2n+ 68} + \frac{1}{4n + 400} \\
+    4n(4n + 400)(2n + 68) &= c((4n + 400)(2n + 68) + 4n(4n + 400) + 4n(2n + 68)) \\
+    4(4n^2 + 400n)(2n + 68) &= c(4(2n^2 + 268n + 6800) + 4n(4n + 400) + 4n(2n + 68)) \\
+    8n^3 + 1072n^2 +27200n &= c(2n^2 + 268n + 6800 + 4n^2 + 400n + 2n^2 + 68n) \\
+    8n^3 + 1072n^2 +27200n &= (100 - n)(8n^2 + 746n + 6800) \\
+    8n^3 + 1072n^2 +27200n &= 54n^2 - 8n^3 + 67800n + 680000  \\
+    16n^3 + 1018n^2 - 40600n - 680000 &= 0\\
+    8n^3 + 509n^2 - 20300n - 340000 &= 0\\
+  \end{align*}
+  So $n \approx 36.781$ and $c \approx 63.219$. This yields an approximate expected utility of $8.407$.
+\end{proof}
+\begin{prob}
+  Does the consumer's preferences over lotteries for tomorrow's income satisfy the VNM axioms?
+\end{prob}
+\begin{proof}[Solution]
+  Suppose the consumer satisfies the vNM axioms. Then expected utility represents $\succ$. Let us denote the lotteries over tomorrow's income from above as $l_1 \sim \delta_{\$34}$, $l_2 \sim \frac{1}{2}\delta_{\$0} + \frac{1}{2}\delta_{\$100}$, and $l_3 \sim \frac{1}{4}\delta_{\$0} +
+  \frac{1}{2}\delta_{\$34} + \frac{1}{4}\delta_{\$100}$. By the above results, $l_2 \succ l_1 \succ l_3$.
+  By Axiom 2, $\frac{1}{2}l_1 + \frac{1}{2}l_2 \succ l_1$. But $\frac{1}{2}l_1 + \frac{1}{2}l_2 \sim l_3$. So $l_3 \succ l_2 \succ l_3$. $(\contra)$.
+\end{proof}
+%
+% Problem 12
+%
+\section{}
+  Consider an agent that is indifferent between full insurance and no insurance with respect to some loss. Let us define probabilistic insurance as follows: an agent pays half of the premium and, if the loss occurs, half of the time, the agent pays the second half and the loss is covered and, the other half, the half premium is returned to the agent. We suppose that this agent is not risk seeking.
+\begin{thm}
+  If an agent always prefers full insurance/no insurance to probabilistic insurance, then the agent's preferences do not satisfy the vNM axioms.
+\end{thm}
+\begin{proof}
+  Suppose the agent's preferences satisfy the vNM axioms. Let $\pi \in (0, 1)$ be the probability that the loss occurs. Since the agent is indifferent between full insurance and no insurance, $\pi \delta_{Y'} + (1 - \pi)\delta_Y \sim \delta_{Y-\gamma}$, where $Y' = Y - \Delta$, $\Delta$ is the loss amount, and $\gamma \geq 0$ is the premium. Let $u(\cdot)$ be the agent's utility function. Then $\pi u(Y') + (1 - \pi)u(Y) = u(Y - \gamma)$.
+  The expected utility of probabilistic insurance is given by $\frac{\pi}{2}u(Y-\gamma) + \frac{\pi}{2}u(Y') + (1 - \pi)u(Y - \frac{\gamma}{2})$.
+  Since full insurance is preferred to probabilistic insurance,
+  \begin{align*}
+    &      & \pi u(Y') + (1 - \pi)u(Y) &> \frac{\pi}{2}u(Y-\gamma) + \frac{\pi}{2}u(Y') + (1 - \pi)u(Y - \frac{\gamma}{2}) \\
+    & \iff & \frac{\pi}{2} u(Y') + (1 - \pi)u(Y) &> \frac{\pi}{2}u(Y-\gamma) + (1 - \pi)u(Y - \frac{\gamma}{2}) \\
+    & \iff & \frac{1}{2} (u(Y - \gamma) - (1 - \pi)u(Y)) + (1 - \pi)u(Y) &> \frac{\pi}{2}u(Y-\gamma) + (1 - \pi)u(Y - \frac{\gamma}{2}) \\
+    & \iff & \frac{1 - \pi}{2} u(Y - \gamma) + \frac{1 - \pi}{2}u(Y) &> (1 - \pi)u(Y - \frac{\gamma}{2}) \\
+    & \iff & \frac{1}{2} u(Y - \gamma) + \frac{1}{2}u(Y)) &> u(Y - \frac{\gamma}{2}.
+  \end{align*}
+  This is never the case since the agent is assumed to not be risk seeking, i.e., $u(\cdot)$ is weakly concave. $(\contra)$.
+\end{proof}
+\begin{prob}
+  Is it possible to satisfy the vNM axioms and not prefer probabilistic insurance?
+\end{prob}
+\begin{proof}[Solution]
+  By the results above, being risk averse, i.e., having a strictly concave utility function, will ensure that the agent does not prefer probabilistic insurance to full insurance/no insurance.
+\end{proof}
+%
+% Problem 13
+%
+\begin{thm}
+  The Ellsberg Paradox is inconsistent with the vNM Axioms. Moreover, the Ellsberg paradox is inconsistent with the Substitution Axiom.
+\end{thm}
+\begin{proof}
+  We may formalize the Ellsberg paradox as follows:
+  $$\frac{1}{3}\delta_{\$1000} + \frac{2}{3}\delta_{\$0} \succ \alpha \delta_{\$1000} + (1 - \alpha)\delta_{\$0}$$
+  $$\frac{2}{3}\delta_{\$1000} + \frac{1}{3}\delta_{\$0} \succ (1 - \alpha) \delta_{\$1000} + \alpha\delta_{\$0}$$
+  where $\alpha \in [0, \frac{2}{3}]$.
+  By result (\ref{lem1c.2}), we have that
+  \begin{align*}
+  &&  \frac{1}{2}(\frac{1}{3}\delta_{\$1000} + \frac{2}{3}\delta_{\$0}) + \frac{1}{2}(\frac{2}{3}\delta_{\$1000} + \frac{1}{3}\delta_{\$0}) &\succ \frac{1}{2}(\delta_{\$1000} + (1 - \alpha)\delta_{\$0}) + \frac{1}{2}((1 - \alpha) \delta_{\$1000} + \alpha\delta_{\$0}) \\
+  & \iff & \frac{1}{2}\delta_{\$1000} + \frac{1}{2}\delta_{\$0} \succ \frac{1}{2} \delta_{\$1000} + \frac{1}{2}\delta_{\$0}.
+  \end{align*}
+  $(\contra)$, since $\succ$ is asymmetric. Note that lemma (\ref{lem1c.2}) is implied by the Substitution Axiom.
+\end{proof}
+%
+% Problem 14
+%
+\begin{prob}
+  Suppose one is offered a gamble with a positive expected value that can be repeated many times. Would a rational consumer turn down this gamble?
+\end{prob}
+\begin{proof}[Solution]
+  If the number of gambles is known in advance, you can construct a utility function that heavily weights losses. The key is to not much value gains and heavily value losses. (Note: I will return to a more formal treatment of this problem in the future.)
+\end{proof}
 \end{document}
