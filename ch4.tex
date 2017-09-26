@@ -1,0 +1,344 @@
+\title{Chapter 4}
+\date{\today}
+\author{Brett Mullins}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amsthm, amsfonts, verbatim, amssymb}
+
+% Theorems
+%-----------------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{prob}{Problem}[section]
+
+% Shortcuts.
+% One can define new commands to shorten frequently used
+% constructions. As an example, this defines the R and Z used
+% for the real and integer numbers.
+%-----------------------------------------------------------------
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+\def\QQ{\mathbb{Q}}
+\def\PP{\mathcal{P}}
+\def\la{\lambda}
+\def\contra{\rightarrow \leftarrow}
+\def\empty{\varnothing}
+
+% Similarly, one can define commands that take arguments. In this
+% example we define a command for the absolute value.
+% -----------------------------------------------------------------
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\begin{document}
+\maketitle
+%
+% Problem 1
+%
+\section{}
+\begin{prob}
+  Suppose a consumer is choosing the consumption of artichoke and brocolli for today and tomorrow with the following utility function:
+  $$U(a_0, b_0, a_1, b_1) = \ln(a_0) + 0.9 \ln(b_0) + 0.8 \ln(a_1) + 0.7 \ln(b_1), $$
+  incomes $Y_0, Y_1 \geq 0$, and the gross return $r$ on loans to/from the bank to be redeamed/paid tomorrow. Let $z$ be the consumer's net position at the bank today and $p_0^a$ be the price of artichokes today with the other prices following accordingly. How much of each will be consumed today and how much tomorrow?
+\end{prob}
+\begin{proof}[Solution]
+  We setup the the mathematical program as follows:
+  \begin{align*}
+    \max &\ln(a_0) + 0.9 \ln(b_0) + 0.8 \ln(a_1) + 0.7 \ln(b_1) \\
+    \text{subject to } &p_0^aa_0 + p_0^bb_0 + z \leq Y_0 \\
+    &p_1^aa_1 + p_1^bb_1 \leq Y_1 + rz \\
+    &a_0, b_0, a_1, b_1 \geq 0.
+  \end{align*}
+  Let us conceive of the utility function as including $z$ as an argument. Let us calculate the Lagrangian:
+  $$ \ln(a_0) + 0.9 \ln(b_0) + 0.8 \ln(a_1) + 0.7 \ln(b_1) - \la_1(p_0^aa_0 + p_0^bb_0 + z - Y_0)$$
+  $$ - \la_2(p_1^aa_1 + p_1^bb_1 - Y_1 - rz) + \la_3a_0 + \la_4b_0 + \la_5a_1 + \la_6b_1. $$
+  We obtain the following constraints:
+  \begin{align*}
+    \frac{1}{a_0} - \la_1p_0^a + \la_3 &= 0 \\
+    \frac{0.9}{b_0} - \la_1p_0^b + \la_4 &= 0 \\
+    \frac{0.8}{a_1} - \la_2p_1^a + \la_5 &= 0 \\
+    \frac{0.7}{b_1} - \la_2p_1^b + \la_6 &= 0 \\
+    \la_2r - \la_1 &= 0 \\
+    \la_1(p_0^aa_0 + p_0^bb_0 + z - Y_0) &= 0 \\
+    \la_2(p_1^aa_1 + p_1^bb_1 - Y_1 - rz) &= 0 \\
+    \la_3a_0 &= 0 \\
+    \la_4b_0 &= 0 \\
+    \la_5a_1 &= 0 \\
+    \la_6b_1 &= 0.
+  \end{align*}
+  Observe that $\la_3, \la_4, \la_5, \la_6 = 0$; otherwise, the first four constraints would not hold.
+  We may rewrite our first five constraints as follows:
+  \begin{align*}
+    \frac{1}{a_0} &= \la_1p_0^a \\
+    \frac{0.9}{b_0} &= \la_1p_0^b \\
+    \frac{0.8}{a_1} &= \la_2p_1^a \\
+    \frac{0.7}{b_1} &= \la_2p_1^b \\
+    \la_2r &= \la_1.
+  \end{align*}
+  We can rewrite these first four in terms of the amount spent in consumption:
+  \begin{align*}
+    \frac{1}{\la_1} &= p_0^aa_0 \\
+    \frac{0.9}{\la_1} &= p_0^bb_0 \\
+    \frac{0.8}{\la_2} &= p_1^aa_1 \\
+    \frac{0.7}{\la_2} &= p_1^bb_1.
+  \end{align*}
+  Suppose that $\la_1 = 0$. Then $a_0, b_0$ would be unbounded, so $\la_1 \neq 0$. Hence, $p_0^aa_0 + p_0^bb_0 + z = Y_0$.
+  Observe that
+  \begin{align*}
+    &          & p_0^aa_0 + p_0^bb_0 + z &= Y_0 \\
+    & \implies & \frac{1}{\la_1} + \frac{0.9}{\la_1} + z &= Y_0 \\
+    & \implies & \frac{1.9}{\la_1} + z &= Y_0 \\
+    & \implies & \la_1 &= \frac{1.9}{Y_0 - z}.
+  \end{align*}
+  Similarly, $\la_2 \neq 0$, since $a_1, b_1$ would be unbounded. Then $p_1^aa_1 + p_1^bb_1 = Y_1 + rz$. Observe that
+  \begin{align*}
+    &          & p_1^aa_1 + p_1^bb_1 &= Y_1 + rz \\
+    & \implies & \frac{0.8}{\la_2} + \frac{0.7}{\la_2} &= Y_1 + rz \\
+    & \implies & \frac{1.5}{\la_2} &= Y_1 + rz \\
+    & \implies & \la_2 &= \frac{1.5}{Y_1 + rz}.
+  \end{align*}
+  Using the fifth constraint, we have that
+  \begin{align*}
+    &          & \la_1 &= r\la_2 \\
+    & \implies & \frac{1.9}{Y_0 - z} &= \frac{1.5r}{Y_1 + rz} \\
+    & \implies & (Y_1 + rz)1.9 &= 1.5r(Y_0 - z) \\
+    & \implies & 1.9Y_1 + 1.9rz &= 1.5rY_0 - 1.5rz \\
+    & \implies & 3.4rz &= 1.5rY_0 - 1.9Y_1 \\
+    & \implies & z &= \frac{1.5rY_0 - 1.9Y_1}{3.4r}.
+  \end{align*}
+  Now that we have the value for $z$, let us solve for $\la_1, \la_2$ to obtain $a_0, b_0, a_1, b_1$:
+  \begin{align*}
+    \la_1 &= \frac{1.9}{Y_0 - z} \\
+    &= \frac{1.9}{Y_0 - \left( \frac{1.5rY_0 - 1.9Y_1}{3.4r} \right)} \\
+    &= \frac{3.4r}{rY_0 + Y_1}
+  \end{align*}
+  and
+  \begin{align*}
+    \la_2 &= \frac{1.5}{Y_1 + rz} \\
+    &= \frac{1.5}{Y_1 + r \left( \frac{1.5rY_0 - 1.9Y_1}{3.4r} \right)} \\
+    &= \frac{3.4}{rY_0 + Y_1}.
+  \end{align*}
+  Then we arrive at the following solution:
+  \begin{align*}
+    x^* &= (a_0^*, b_0^*, a_1^*, b_1^*, z^*)\\
+    &= \left(\frac{rY_0 + Y_1}{3.4rp_0^a}, \frac{0.9(rY_0 + Y_1)}{3.4rp_0^b}, \frac{0.8(rY_0 + Y_1)}{3.4p_1^a}, \frac{0.7(rY_0 + Y_1)}{3.4p_1^b}, \frac{1.5rY_0 - 1.9Y_1}{3.4r}\right).
+  \end{align*}
+  I leave it to the reader to check that initial constrains are indeed satisfied.
+\end{proof}
+\begin{prob}
+  Now suppose that the extra constraint is added such that the consumer can only lend, i.e., $z \geq 0$. What is the optimal solution?
+\end{prob}
+\begin{proof}[Solution]
+  We solve a modified version of the program above:
+  \begin{align*}
+    \max &\ln(a_0) + 0.9 \ln(b_0) + 0.8 \ln(a_1) + 0.7 \ln(b_1) \\
+    \text{subject to } &p_0^aa_0 + p_0^bb_0 + z \leq Y_0 \\
+    &p_1^aa_1 + p_1^bb_1 \leq Y_1 + rz \\
+    &a_0, b_0, a_1, b_1, z \geq 0.
+  \end{align*}
+  Let us conceive of the utility function as including $z$ as an argument. Let us calculate the Lagrangian:
+  $$ \ln(a_0) + 0.9 \ln(b_0) + 0.8 \ln(a_1) + 0.7 \ln(b_1) - \la_1(p_0^aa_0 + p_0^bb_0 + z - Y_0)$$
+  $$ - \la_2(p_1^aa_1 + p_1^bb_1 - Y_1 - rz) + \la_3a_0 + \la_4b_0 + \la_5a_1 + \la_6b_1 + \la_7z $$
+  with positive lambdas.
+  We obtain the following constraints:
+  \begin{align*}
+    \frac{1}{a_0} - \la_1p_0^a + \la_3 &= 0 \\
+    \frac{0.9}{b_0} - \la_1p_0^b + \la_4 &= 0 \\
+    \frac{0.8}{a_1} - \la_2p_1^a + \la_5 &= 0 \\
+    \frac{0.7}{b_1} - \la_2p_1^b + \la_6 &= 0 \\
+    \la_2r - \la_1 + \la_7 &= 0 \\
+    \la_1(p_0^aa_0 + p_0^bb_0 + z - Y_0) &= 0 \\
+    \la_2(p_1^aa_1 + p_1^bb_1 - Y_1 - rz) &= 0 \\
+    \la_3a_0 &= 0 \\
+    \la_4b_0 &= 0 \\
+    \la_5a_1 &= 0 \\
+    \la_6b_1 &= 0 \\
+    \la_7z &= 0.
+  \end{align*}
+  As before we have that $\la_3, \la_4, \la_5, \la_6 = 0$.
+  We may rewrite our first five constraints as follows:
+  \begin{align*}
+    \frac{1}{a_0} &= \la_1p_0^a \\
+    \frac{0.9}{b_0} &= \la_1p_0^b \\
+    \frac{0.8}{a_1} &= \la_2p_1^a \\
+    \frac{0.7}{b_1} &= \la_2p_1^b \\
+    \la_2r + \la_7 &= \la_1.
+  \end{align*}
+  We can rewrite these first four in terms of the amount spent in consumption:
+  \begin{align*}
+    \frac{1}{\la_1} &= p_0^aa_0 \\
+    \frac{0.9}{\la_1} &= p_0^bb_0 \\
+    \frac{0.8}{\la_2} &= p_1^aa_1 \\
+    \frac{0.7}{\la_2} &= p_1^bb_1.
+  \end{align*}
+  As above, $\la_1, \la_2 \neq 0$. This implies that $\la_1 = \frac{1.9}{Y_0 - z}$ and $\la_2 = \frac{1.5}{Y_1 + rz}$.
+  Suppose $\la_7 = 0$. Then we are in the situation we obtain the solution $x^*$ from above. \\
+  Instead, suppose $\la_7 \neq 0$. Then $z = 0$. Now, $\la_1 = \frac{1.9}{Y_0}$ and $\la_2 = \frac{1.5}{Y_1}$. This leads to the following solutions:
+  \begin{align*}
+    x' &= (a_0', b_0', a_1', b_1', z') \\
+    &= \left(\frac{Y_0}{1.9p_0^a}, \frac{0.9Y_0}{1.9p_0^b}, \frac{0.8 Y_1}{1.5p_1^a}, \frac{0.7 Y_1}{p_1^b}, 0\right).
+  \end{align*}
+  Now that we have two candidate solutions, we must choose between them. Observe that the objective function is monotonic in each of the first four dimensions. It is sufficient to show the following result for one of the four dimensions. Suppose $a_0' < a_0^*$. Observe that
+  \begin{align*}
+    a_0' < a_0^* &\iff \frac{Y_0}{1.9 p_0^a} < \frac{rY_0 + Y_1}{3.4rp_0^a} \\
+    &\iff 3.4rY_0 < 1.9rY_0 + 1.9Y_1 \\
+    &\iff 1.5rY_0 < 1.9Y_1 \\
+    &\iff z < 0.
+  \end{align*}
+  $(\contra)$. Hence, $a_0' \geq a_0^*$. Then the optimal solution is $x'$.
+\end{proof}
+%
+% Problem 2
+%
+\section{}
+\begin{prob}
+  Suppose that we can once again borrow from the back but now we can purchase artichokes and broccoli today and have them for tomorrow. What is the optimal consumption bundle in this case?
+\end{prob}
+\begin{proof}[Solution]
+  This problem is long and laborious, so I will set the problem up and leave the grinding out of the details to the reader. Let $a_0, b_0$ be the amount of artichokes and broccoli purhased today and consumed today, $a_1, b_1$ be the amounts purchased tomorrow and consumed tomorrow, and $a_2, b_2$ be the amounts purchased today but consumed tomorrow. \\
+  This leads us to the following mathematical program:
+  \begin{align*}
+    \max &\ln(a_0) + 0.9 \ln(b_0) + 0.8 \ln(a_1 + a_2) + 0.7 \ln(b_1 + b_2) \\
+    \text{subject to } &p_0^a(a_0 + a_2) + p_0^b(b_0 + b_2) + z \leq Y_0 \\
+    &p_1^aa_1 + p_1^bb_1 \leq Y_1 + rz \\
+    &a_0, b_0, a_1, b_1, a_2, b_2 \geq 0.
+  \end{align*}
+  Note that the objective function is implicitly a function of $z$.
+\end{proof}
+%
+% Problem 3
+%
+\section{}
+Both parts are solved in Appendix II, so there's no need to repeat them here.
+%
+% Problem 4
+%
+\section{}
+\begin{thm}
+  Let $M$ be the set of menus over some finite set $X$. A consumer's preferences $\succ$ on $M$ are assymmetric, negatively transitive, and satisfy $(\clubsuit)$ iff the consumer's preferences arise from some ordinal utility function $u:X \rightarrow \RR$, where $(\clubsuit)$ is the property that for $m, m' \in M, m \succeq m' \implies m \sim m \cup m'$.
+\end{thm}
+\begin{proof}
+\begin{enumerate}
+  \item $(\leftarrow)$ Suppose the consumer's preferences on $X$ arise from some ordinal utility function $u:X \rightarrow \RR$. Let us define $U:M \rightarrow \RR$ by $U(A) = \max_{a \in A} u(a)$. Let us check that $U$ induces preferences on $M$ that satisfy the desired properties by $A \succ B$ if $U(A) > U(B), A, B \in M$. Suppose $A \succ B$. Then $\max_{a \in A} u(a) > \max_{b \in B} u(b)$. Note that I am ignoring the technical detail of nonuniqueness below.
+  \begin{enumerate}
+    \item Let $a^* = \arg \max_{a \in A}u(a), b^* = \arg \max_{b \in B}u(b)$. Then $u(a^*) > u(b^*)$. Clearly, $\succ$ is asymmetric; otherwise, $u(b^*) > u(a^*)$.
+    \item Let $C \in M$. Let $c^* = \arg \max_{c \in C}u(c)$. Then $u(a^*), u(b^*), u(c^*) \in \RR$ and $u(a^*) > u(b^*)$. If $u(a^*) \not> u(c^*)$, then $u(c^*) \geq u(a^*) > u(b^*)$. Similarly, if $u(c^*) \not> u(b^*)$, then $u(a^*) > u(b^*) \geq u(c^*)$.
+    \item Now suppose $A \succeq B$. Then $\max_{a \in A} u(a) \geq \max_{b \in B} u(b)$. Let $a^*, b^*$ be defined as before, so $u(a^*) \geq u(b^*)$. Let $D = A \cup B, d^* = \arg \max_{d \in A \cup B}u(d)$. Then $u(d^*) = u(a^*)$; otherwise, $u(b^*) > u(a^*)$.
+  \end{enumerate}
+  \item $(\rightarrow)$. Suppose the consumer's preferences $\succ$ on $M$ are assymmetric, negatively transitive, and satisfy $(\clubsuit)$. Since $X$ is finite, $\succ$ admits a numerical representation $U:M \rightarrow \RR$. From this, let us construct $u: X \rightarrow \RR$. For $a \in X$, define $u(a) = U(\{ a \})$. It is sufficient to show that $u$ induces an asymmetric and negatively transitive ordering on $X$, which are both inherited directly from $\succ$ by considering the subset of $M$ consistenting of singletons. 
+\end{enumerate}
+\end{proof}
+%
+% Problem 5
+%
+\section{}
+\begin{prob}
+  Let us solve a simplified version of Problem 1 where the agent's utility function is given by $U(a_0, b_0, a_1, b_1) = \ln a_0 + \ln b_0 + \ln a_1 + \ln b_1$, $Y_0 = Y_1 = 3$, $r = 1$, $p_0^a = p_0^b = p_1^a = p_1^b = 0$. We wish to find the optimal comsumption bundle.
+\end{prob}
+\begin{proof}[Solution]
+  Given that this is a simple program, we shall solve it as a static program, given below:
+  \begin{align*}
+    \max &\ln a_0 + \ln b_0 + \ln a_1 + \ln b_1 \\
+    \text{subject to } &a_0 + b_0 + z \leq 3 \\
+    & a_1 + b_1 \leq 3 + z \\
+    &a_0, b_0, a_1, b_1 \geq 0.
+  \end{align*}
+  This yields the following Lagrangian function
+  $$\ln a_0 + \ln b_0 + \ln a_1 + \ln b_1 - \la_1(a_0 + b_0 + z - 3) - \la_2(a_1 + b_1 - z - 3) + \la_3a_0 + \la_4b_0 + \la_5a_1 + \la_6b_1$$
+  and the following constraints
+  \begin{align*}
+    &\frac{1}{a_0} - \la_1 + \la_3 = 0 \\
+    &\frac{1}{b_0} - \la_1 + \la_4 = 0 \\
+    &\frac{1}{a_1} - \la_2 + \la_5 = 0 \\
+    &\frac{1}{B_1} - \la_2 + \la_6 = 0 \\
+    &-\la_1 + \la_2 = 0 \\
+    &\la_3a_0 = \la_4b_0 = \la_5a_1 = \la_6b_1 = 0.
+  \end{align*}
+  It follows immediately that $\la_3, \la_4, \la_5, \la_6 = 0$. Now we can solve for $\la_1$:
+  \begin{align*}
+    &\la_1 = \la_2 \\
+    &\la_1 = \frac{1}{a_0} \\
+    &\la_1 = \frac{1}{b_0} \\
+    &\la_1 = \frac{1}{a_1} \\
+    &\la_1 = \frac{1}{b_1}.
+  \end{align*}
+  Then $\la_1 \neq 0$. So $a_0 + b_0 + z = 3$ and $a_1 + b_1 = z + 3$. Let us solve for $\la_1$ in terms of $z$ in each equation.
+  \begin{align*}
+    &           & a_0 + b_0 + z &= 3 &          & a_1 + b_1 &= z + 3 & \\
+    & \implies  & \frac{2}{\la_1} + z &= 3      & \implies & \frac{2}{\la_1} &= z + 3 & \\
+    & \implies  & \frac{2}{\la_1} &= 3 - z      & \implies & \frac{2}{\la_1} &= z + 3 & \\
+    & \implies  & \frac{2}{3 - z} &= \la_1      & \implies & \frac{2}{z + 3} &= \la_1. &
+  \end{align*}
+  Setting these equations equal, we obtain:
+  \begin{align*}
+    &          & \frac{2}{3 - z} &= \frac{2}{z + 3} \\
+    & \implies & z + 3 &= 3 - z \\
+    & \implies & 2z &= 0 \\
+    & \implies & z &= 0.
+  \end{align*}
+  Then $\la_1 = \frac{2}{3}$. Hence, $a_0, b_0, a_1, b_1 = \frac{3}{2}$. Observe that these satify the derived constrains.
+\end{proof}
+\begin{prob}
+  Let us complicate the problem by making the utility functions a function of time. For $t = 0$, the agent's utility function remains as above; however, for $t = 1$, $U^1(a_1, b_1) = \ln a_1 + b_0\ln b_1$. We wish to find the optimal bundle.
+\end{prob}
+\begin{proof}[Solution]
+  Given the relative complexity of this program we shall solve it as a finite horizon dynamic program.
+  \begin{enumerate}
+    \item
+      First, let us solve for $t = 1$. We shall solve the following program:
+      \begin{align*}
+        \max &\ln a_1 + b_0\ln b_1 \\
+        \text{subject to } &a_1 + b_1 \leq z + 3 \\
+        &a_1, b_1 \geq 0.
+      \end{align*}
+      Observe that we are treating $b_0, z$ as given. This yields the following Lagrangian function:
+      $$ \ln a_1 + b_0\ln b_1 - \la_1(a_1 + b_1 - z - 3) + \la_2a_1 + \la_3b_1 $$
+      and the following constraints
+      \begin{align*}
+        &\frac{1}{a_1} - \la_1 + \la_2 = 0 \\
+        &\frac{b_0}{b_1} - \la_1 + \la_3 = 0 \\
+        &\la_1(a_1 + b_1 - z - 3) = 0 \\
+        &\la_2a_1 = \la_3b_1 = 0.
+      \end{align*}
+      Then $\la_2, \la_3 = 0$ and $\la_1 \neq 0$. So $a_1 + b_1 = z + 3$. Substituting in, we obtain
+      \begin{align*}
+        &          &a_1 + b_1 &= z + 3 \\
+        & \implies &\frac{1}{\la_1} + \frac{b_0}{\la_1} &= z + 3 \\
+        & \implies & \la_1 &= \frac{1 + b_0}{z + 3}.
+      \end{align*}
+      Then $a_1 = \frac{z + 3}{1 + b_0}, b_1 = \frac{b_0(z + 3)}{1 + b_0}$.
+    \item
+      Now, we may solve for $t = 0$. We shall solve the following program using the solutions from $t = 1$:
+      \begin{align*}
+        \max & \ln a_0 + \ln b_0 + \ln \left( \frac{z + 3}{1 + b_0} \right) + \ln \left( \frac{b_0(z + 3)}{1 + b_0} \right) \\
+        \text{subject to } &a_0 + b_0 + z \leq 3 \\
+        &a_0, b_0 \geq 0.
+      \end{align*}
+      For conveivence, let us rewrite the objective function as $\ln a_0 + 2\ln b_0 + 2 \ln(z + 3) - 2 \ln(1 + b_0)$. This yields the following Lagrangian function
+      $$ \ln a_0 + 2\ln b_0 + 2 \ln(z + 3) - 2 \ln(1 + b_0) - \la_1(a_0 + b_0 + - 3) + \la_2a_0 +  \la_3b_0. $$
+      and the following constraints
+      \begin{align*}
+        &\frac{1}{a_0} - \la_1 + \la_2 = 0 \\
+        &\frac{2}{b_0} - \frac{2}{1 + b_0} - \la_1 + \la_3 = 0 \\
+        &\frac{2}{z + 3} - \la_1 = 0 \\
+        &\la_1(a_0 + b_0 + z - r) = 0 \\
+        &\la_2a_0 = 0 \\
+        &\la_3b_0 = 0.
+      \end{align*}
+      Per usual, $\la_2, \la_3 = 0$, implying $\la_1 = \frac{1}{a_0} = \frac{2}{b_0} - \frac{2}{1 + b_0} = \frac{2}{z + 3} \neq 0$. So $a_0 + b_0 + z = 3$. Let us solve for $a_0, z$: $a_0 = \frac{1}{\la_1}$ and $z = \frac{2}{\la_1} - 3$. Then
+      \begin{align*}
+        &          &\frac{1}{\la_1} + b_0 + \frac{2}{\la_1} - 3 &= 3 \\
+        & \implies &\frac{3}{\la_1} + b_0 &= 6 \\
+        & \implies &b_0 &= 6 - \frac{3}{\la_1}.
+      \end{align*}
+      Solving for $\la_1$, we obtain two possible values: $\frac{1}{3}, \frac{9}{14}$.
+      Observe that if $\la_1 = \frac{1}{3}$, then $b_0 = -3$. $(\contra)$, so $\la_1 = \frac{9}{14}$.
+      Then $a_0 = \frac{14}{9}, b_0 = \frac{4}{3}, z = \frac{1}{9}$.
+  \end{enumerate}
+  Then the optimal bundle is given by $(a_0, b_0, a_1, b_1, z) = (\frac{14}{9}, \frac{4}{3}, \frac{4}{3}, \frac{16}{9}, \frac{9}{14})$.
+\end{proof}
+\end{document}
