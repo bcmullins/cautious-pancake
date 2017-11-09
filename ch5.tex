@@ -1,0 +1,267 @@
+\title{Chapter 5}
+\date{\today}
+\author{Brett Mullins}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amsthm, amsfonts, verbatim, amssymb}
+
+% Theorems
+%-----------------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{prob}{Problem}[section]
+
+% Shortcuts.
+% One can define new commands to shorten frequently used
+% constructions. As an example, this defines the R and Z used
+% for the real and integer numbers.
+%-----------------------------------------------------------------
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+\def\QQ{\mathbb{Q}}
+\def\PP{\mathcal{P}}
+\def\la{\lambda}
+\def\contra{\rightarrow \leftarrow}
+\def\empty{\varnothing}
+
+% Similarly, one can define commands that take arguments. In this
+% example we define a command for the absolute value.
+% -----------------------------------------------------------------
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\begin{document}
+\maketitle
+%
+% Problem 1
+%
+\section{}
+\begin{thm}
+  Suppose $(V_1, \ldots, V_I)$ are numerical representations for preferences $\succ_i$. An equal-weighted utilitarian social welfare function can be changed into an arbitrairly weighted utilitarian social welfare function without changing the choices made.
+\end{thm}
+\begin{proof}
+  Suppose $(\alpha_1, \ldots, \alpha_I)$ be an arbitrary set of weights where $\alpha_i > 0$. Let $W'(x) = \sum_{i = 1}^I \frac{i}{I}V_i(x)$ be an equal weighted social function. Let $\alpha = \prod_{i = 1}^I \alpha_i$. Recall that preferences are preserved by positive linear transformations of their numerical representations. Then
+  \begin{align*}
+    I \alpha W'(x) &= I \alpha \sum_{i = 1}^I \frac{1}{I} V_i(x) \\
+    &= \prod_{j = 1}^I \alpha_j \sum_{i = 1}^I V_i(x) \\
+    &= \sum_{i = 1}^I \alpha_i V_i(x) \prod_{j = 1}^I \frac{\alpha_j}{\alpha_i} \\
+    &= \sum_{i = 1}^I \alpha_i V'_i(x)
+  \end{align*}
+  where $V'_i(x) = V_i(x) \prod_{j = 1}^I \frac{\alpha_j}{\alpha_i}$, a positive linear transformation of $V_i(x)$.
+\end{proof}
+%
+% Problem 2
+%
+\section{}
+Suppose there are two goods $t, q$ and two consumers $1, 2$. Consumer 1 has utility function $U_1(t, q) = 6 + 0.4 \ln(t) + 0.6 \ln(q)$ and Consumer 2 has utility function $U_2(t, q) = 8 + \ln(t) + \ln(q)$. The social endowment is 15 units of $t$ and 20 units of $q$.
+\begin{prob}
+  Suppose that a social dictator has the following SWF: $U(u_1, u_2) = \max\{ u_1, u_2 \} + 2 \min\{ u_1, u_2 \}$. With this notation, $u_1$ is the utility of Consumer 1 and $u_2$ is the utility of Consumer 2. What is the optimal allocation for this social dictator?
+\end{prob}
+\begin{proof}[Solution]
+  We want to solve the following problem:
+  \begin{align*}
+    \max &2\min\{u_1, u_2 \} + \max \{u_1, u_2 \} \\
+    \text{subject to} &t_1 + t_2 \leq 15 \\
+    &q_1 + q_2 \leq 20 \\
+    &t_1, t_2, q_1, q_2 \geq 0
+  \end{align*}
+  Let us break this into two subproblems: the first where $u_1 \geq u_2$ and the second where $u_1 \leq u_2$. We will solve each and compare their values.
+  \begin{enumerate}
+    \item We will first solve the following:
+    \begin{align*}
+      \max &20 + 0.8 \ln(t_1) + 1.2 \ln(q_1) + \ln(t_2) + \ln(q_2) \\
+      \text{subject to} &0.4\ln(t_1) + 0.6\ln(q_1) - \ln(t_2) - \ln(q_2) - 2 \leq 0 \\
+      &t_1 + t_2 \leq 15 \\
+      &q_1 + q_2 \leq 20 \\
+      &t_1, t_2, q_1, q_2 \geq 0
+    \end{align*}
+    We obtain the following Lagrangian: $$ 20 + 0.8 \ln(t_1) + 1.2 \ln(q_1) + \ln(t_2) + \ln(q_2) - \la_1(0.4\ln(t_1) + 0.6\ln(q_1) + \ln(t_2) - \ln(q_2) - 2) - \la_2(t_1 + t_2 - 15) - \la_3(q_1 + q_2 - 20) + \la_4t_1 + \la_5t_2 + \la_6q_1 + \la_7q_2$$.
+    This results in the following constraints:
+    \begin{align*}
+      \frac{0.8}{t_1} + \frac{0.4\la_1}{t_1} - \la_2 + \la_4 &= 0 \\
+      \frac{1.2}{q_2} + \frac{0.6\la_1}{q_1} - \la_3 + \la_6 &= 0 \\
+      \frac{1}{t_2} - \frac{\la_1}{t_2} - \la_2 + \la_5 &= 0 \\
+      \frac{1}{q_2} - \frac{\la_1}{q_2} -\la_3 + \la_7 &= 0 \\
+      \la_1(0.4\ln(t_1) + 0.6\ln(q_1) + \ln(t_2) - \ln(q_2) - 2) &= 0 \\
+      \la_2(t_1 + t_2 - 15) &= 0 \\
+      \la_3(q_1 + q_2 - 20) &= 0 \\
+      \la_4t_1 = \la_5t_2 = \la_6q_1 = \la_7q_2 &= 0.
+    \end{align*}
+    Immediately, we see that $\la_4 = \la_5 = \la_6 = \la_7 = 0$; otherwise, the conditions above are not defined. Then we have that
+    \begin{align*}
+      \la_2 = \frac{0.8 + 0.4\la_1}{t_1} = \frac{1 - \la_1}{t_2} \\
+      \la_3 = \frac{1.2 + 0.6\la_1}{q_1} = \frac{1 - \la_1}{t_2}.
+    \end{align*}
+    If $t_1, t_2, q_1, q_2$ are bounded, then $\la_2, \la_3 \neq 0$. So $t_1 + t_2 = 15$ and $q_1 + q_2 = 20$.
+    Observe that
+    \begin{align*}
+      \frac{0.8 + 0.4\la_1}{t_1} &= \frac{1 - \la_1}{t_2} \\
+      \frac{0.8 + 0.4\la_1}{15 - t_2} &= \frac{1 - \la_1}{t_2} \\
+      0.8t_2 - 0.4\la_1t_2 &= 15 + 15\la_1 - t_2 - la_1t_2 \\
+      0.6\la_1t_2 - 15\la_1 &= 15 - 1.8t_2 \\
+      \la_1(0.6t_2 - 15) &= 15 - 1.8t_2 \\
+      \la_1 &= \frac{15 - 1.8t_2}{0.6t_2 - 15}
+    \end{align*}
+    and that
+    \begin{align*}
+      \frac{1.2 + 0.6\la_1}{q_1} &= \frac{1 - \la_1}{t_2} \\
+      \frac{1.2 + 0.6\la_1}{20 - q_2} &= \frac{1 - \la_1}{t_2} \\
+      1.2q_2 - 0.6\la_1q_2 &= 20 + 20\la_1 - q_2 - \la_1q_2 \\
+      0.4\la_1q_2 - 20\la_1 &= 2- = 2.2q_2 \\
+      la_1 &= \frac{20 - 2.2q_2}{0.4q_2 - 20}.
+    \end{align*}
+    Suppose $\la_1 = 0$. Then $t_2 = \frac{25}{3}$ and $q_2 = \frac{100}{11}$. So $t_1 = \frac{20}{3}$ and $q_1 = \frac{120}{11}$. So the following is a suspect: $(\frac{20}{3}, \frac{120}{11}, \frac{25}{3}, \frac{100}{11})$. This yields utility approximately equal to $29.2862$.
+    We need not worry with the case where $\la_1 \neq 0$.
+    \item For the second subproblem, we shall solve
+    \begin{align*}
+      \max &22 + 2\ln(t_2) + 2\ln(q_2) + 0.4\ln(t_1) + 0.6\ln(q_1) \\
+      \text{subject to} &2 - 0.4\ln(t_1) - 0.6\ln(q_1) + \ln(t_2) + \ln(q_2) \leq 0 \\
+      &t_1 + t_2 \leq 15 \\
+      &q_1 + q_2 \leq 20 \\
+      &t_1, t_2, q_1, q_2 \geq 0
+    \end{align*}
+    This yields the following Lagrangian: $$ 22 + 2\ln(t_2) + 2\ln(q_2) + 0.4\ln(t_1) + 0.6\ln(q_1) - \la_1(2 - 0.4\ln(t_1) - 0.6\ln(q_1) + \ln(t_2) + \ln(q_2)) - \la_2(t_1 + t_2 - 15) - \la_3(q_1 + q_2 - 20) + \la_4t_1 + \la_5t_2 + \la_6q_1 + \la_7q_2$$.
+    This results in the following constraints:
+    \begin{align*}
+      \frac{0.4}{t_1} + \frac{0.4\la_1}{t_1}  - \la_2 + \la_4 &= 0 \\
+      \frac{0.6}{q_1} + \frac{0.6\la_1}{q_1} - \la_3  + \la_5 &= 0 \\
+      \frac{2}{t_2} - \frac{\la_1}{t_2} - \la_2 + \la_6 &= 0 \\
+      \frac{2}{q_2} - \frac{\la_1}{q_2} - \la_3 + \la_7 &= 0 \\
+      \la_1(2 - 0.4\ln(t_1) - 0.6\ln(q_1) + \ln(t_2) + \ln(q_2)) &= 0 \\
+      \la_2(t_1 + t_2 - 15) &= 0 \\
+      \la_3(q_1 + q_2 - 20) &= 0 \\
+      \la_4t_1 = \la_5t_2 = \la_6q_1 = \la_7q_2 &= 0.
+    \end{align*}
+    As before, $\la_4 = \la_5 = \la_6 = \la_7 = 0$, $t_1 + t_2 = 15$, $q_1 + q_2 = 20$, $\la_2 = \frac{0.4 + 0.4\la_1}{t_1} = \frac{2 - \la_1}{t_2}$, and $\la_3 = \frac{0.6 + 0.6\la_1}{q_1} = \frac{2 - \la_1}{q_2}$.
+    Observe that
+    \begin{align*}
+      \frac{0.4 + 0.4\la_1}{t_1} &= \frac{2 - \la_1}{t_2} \\
+      0.4(1 + \la_1)(15 - t_1) &= 2t_1 - \la_1t_1 \\
+      6 + 6\la_1 - \frac{2}{5}t_1 - \frac{2}{5}\la_1t_1 &= 2t_1 - \la_1t_1 \\
+      6\la_1 + \frac{3}{5}\la_1t_1 &= \frac{12}{5}t_1 - 6 \\
+      \la_1 &= \frac{4t_1 - 10}{10 + t_1}
+    \end{align*}
+    and that
+    \begin{align*}
+      \frac{0.6 + 0.6\la_1}{q_1} &= \frac{2 - \la_1}{q_2} \\
+      0.6(1 + \la_1)(20 - q_1) &= 2q_1 - \la_1q_1 \\
+      12\la_1 + \frac{2}{5}\la_1q_1 &= \frac{13}{5}q_1 - 12 \\
+      \la_1 &= \frac{13q_1 - 60}{60 + 2q_1}.
+    \end{align*}
+    As before, suppose $\la_1 = 0$. Then $t_1 = \frac{5}{2}, t_2 = \frac{25}{2}, q_1 = \frac{60}{13}, q_2 = \frac{100}{13}$. This yields utility approximately $30.41$.
+  \end{enumerate}
+  Hence, the optimal allocation is given by the following bundle $(\frac{5}{2}, \frac{60}{13}, \frac{25}{2}, \frac{100}{13})$.
+\end{proof}
+\begin{prob}
+  Find the set of all feasible, Pareto efficient allocations for this society?
+\end{prob}
+\begin{proof}[Solution]
+  Let $\alpha \in [0,1]$. We wish to maximize the following program:
+  \begin{align*}
+    \max &\alpha(6 + 0.4\ln(t_1) + 0.6\ln(q_1)) + (1 - \alpha)(8 + \ln(t_2) + \ln(q_2)) \\
+    \text{subject to} &t_1 + t_2 \leq 15 \\
+    &q_1 + q_2 \leq 20 \\
+    &t_1, q_1, t_2, q_2 \geq 0
+  \end{align*}
+  This yields the following Lagrangain: $$ \alpha(6 + 0.4\ln(t_1) + 0.6\ln(q_1)) + (1 - \alpha)(8 + \ln(t_2) + \ln(q_2)) - \la_1(t_1 + t_2  - 15) - \la_2(q_1 + q_2 - 20) + \la_3t_1 + \la_4q_1 + \la_5t_2 + \la_6q_2 $$.
+  We obtain the following constraints:
+  \begin{align*}
+    \frac{0.4\alpha}{t_1} - \la_1 + \la_3 &= 0 \\
+    \frac{0.6\alpha}{q_1} - \la_2 + \la_4 &= 0 \\
+    \frac{1 - \alpha}{t_2} - \la_1 + \la_5 &= 0 \\
+    \frac{1 - \alpha}{q_2} - \la_2 + \la_6 &= 0 \\
+    \la_1(t_1 + t_2  - 15) &= 0 \\
+    \la_2(q_1 + q_2 - 20) &= 0 \\
+    \la_3t_1 = \la_4q_1 = \la_5t_2 = \la_6q_2 &= 0.
+  \end{align*}
+  Clearly, $\la_3 = \la_4 = \la_5 = \la_6 = 0$. Then $\la_1 = \frac{0.4\alpha}{t_1} = \frac{1 - \alpha}{t_2}$ and $\la_2 = \frac{0.6\alpha}{q_1} = \frac{1 - \alpha}{q_2}$. Then $\la_1, \la_2 \neq 0$.
+  So $t_1 + t_2 = 15$ and $q_1 + q_2 = 20$. Observe that
+  \begin{align*}
+    \frac{0.4\alpha}{t_1} &= \frac{1 - \alpha}{t_2} \\
+    \frac{0.4\alpha}{t_1} &= \frac{1 - \alpha}{15 - t_1} \\
+    6\alpha - 0.4\alpha t_1 &= t_1 - \alpha t_1 \\
+    t_1 &= \frac{6\alpha}{1 - 0.6\alpha}
+  \end{align*}
+  and that
+  \begin{align*}
+    \frac{0.6\alpha}{q_1} &= \frac{1 - \alpha}{q_2} \\
+    \frac{0.6\alpha}{q_1} &= \frac{1 - \alpha}{20 - q_1} \\
+    12\alpha - 0.6\alpha q_1 &= q_1 - \alpha q_1 \\
+    q_1 &= \frac{12\alpha}{1 - 0.4\alpha}.
+  \end{align*}
+  Then $t_2 = \frac{15 - 15\alpha}{1 - 0.6\alpha}$ and $q_2 = \frac{20 - 20\alpha}{1 - 0.4\alpha}$. So the pareto efficient allocations are given by $\{ (\frac{6\alpha}{1 - 0.6\alpha}, \frac{12\alpha}{1 - 0.4\alpha}, \frac{15 - 15\alpha}{1 - 0.6\alpha}, \frac{20 - 20\alpha}{1 - 0.4\alpha}) \mid \alpha \in [0,1] \}$.
+\end{proof}
+%
+% Problem 3
+%
+\section{}
+\begin{thm}
+  Suppose $X' \subseteq X$ is a convex set and each $V_1:X \rightarrow \RR$ is concave. Then if $x^*$ is pareto efficient in $X'$ then $V(x^*) \geq y$ for all $y$ in the convex hull of $V(X')$.
+\end{thm}
+\begin{proof}
+  Suppose there exists $y \in CHull(V(X'))$ such that $y > V(x^*)$. Then $y = \sum^n_{i = 1}\la_iu_i, u_i \in V(X'), \sum^n_{i = 1} \la_i = 1, \la_i > 0$ for at least one $i$.
+  Then $\sum^n_{i = 1}\la_iu_i = \sum^n_{i = 1}\la_iV(x_i)$ for some $x_i \in X'$. Since $V$ is concave in each dimension, $\sum^n_{i = 1}\la_iV(x_i) \leq V(\sum^n_{i = 1}\la_ix_i)$. Since $X'$ is convex, $\sum^n_{i = 1}\la_ix_i \in X'$, but $x^*$ is pareto efficient in $X'$. $(\contra)$.
+\end{proof}
+%
+% Problem 4
+%
+\section{}
+\begin{prob}
+  Construct two nonintersecting convex sets in $\RR^2$ such that the only separating hyperplane between them intersects each of the sets.
+\end{prob}
+\begin{proof}[Solution]
+  Define $A = \{(x_1, x_2) \mid x_1 \leq 0 \ if \ x_2 > 0 \ and \ x_1 < 0 \ if \ x_2 \leq 0 \}$ and $B = \{(x_1, x_2) \mid x_1 > 0 \ if \ x_2 > 0 \ and \ x_1 \geq 0 \ if \ x_2 \leq 0 \}$.
+  Then $A \cap B = \emptyset$ where both $A, B$ are convex. The only separating hyperplace goes along the $y-axis$.
+\end{proof}
+%
+% Problem 5
+%
+\section{}
+%
+% Problem 6
+%
+\section{}
+%
+% Problem 7
+%
+\section{}
+%
+% Problem 8
+%
+\section{}
+\begin{prob}
+  For the Pareto Rule, the majority rule, and the Borda rule, which of the four properties in Arrow's theorem does the rule obey and which does it violate. Recall that the four properties are as follows (where $x, x' \in X$):
+  \begin{enumerate}
+    \item The social ordering $\succ^*$ is assymmetric and negatively transitive.
+    \item If $x \succ_i x'$ for all $i$, then $x \succ^* x'$.
+    \item If $\succ_i, \succ_i'$ are rankings that satisfy $x \succ_i x'$ iff $x \succ_i' x'$ for all $i$, then the social ranking of $x$ and $x'$ is the same in these two situations.
+  \end{enumerate}
+\end{prob}
+\begin{proof}[Pareto Rule]
+  Recall that the Pareto rule states that $x \succ^* x'$ iff $x$ pareto dominates $x'$.
+  \begin{enumerate}
+    \item Suppose $x \succ^* x'$. Then $x \succ_i x'$ for all $i$. Since $\succ_i$ is asymmetric, $x' \not\succ_i x$. So $x' \not\succ^* x$. Suppose $x'' \in X$. Then for each $i$, either $x'' \succ_i x'$ or $x \succ_i x''$ by the negative transitive of $\succ_i$; however, this need not be uniform across $i$. So the pareto rule does not induce a negatively transitive social ordering.
+    \item Holds trivially.
+    \item Holds trivially.
+    \item Suppose $i$ is a dictator and $x \succ_i x'$, but $x' \succ_j x$. Then $x \not\succ x'$. $(\contra)$.
+  \end{enumerate}
+\end{proof}
+\begin{proof}[Majority Rule]
+  Recall that the Majority rule states that $x \succ^* x'$ iff $P(x, x') > \frac{I}{2}$, where $P(x, x')$ is the count of individuals where $x \succ_i x'$ and $I$ is the number of individuals.
+  \begin{enumerate}
+    \item Suppose $x \succ^* x'$. Then more individuals prefer $x$ to $x'$ than not. Hence, $x' \not\succ^*$. Now, let $x'' \in X$. Suppose $P(x, x') = J > \frac{I}{2}$. Since $\succ_i$ is negatively transitive, if $x \succ_i x'$ then either $x'' \succ_i x'$ or $x \succ_i x''$.
+    Notice that if $I > J$ and $P(x'', x) = P(x', x) = \frac{J}{2} < \frac{I}{2}$ then $x'' \not\succ^* x'$ and $x \not\succ^* x''$. So the Majority rule does not induce a negatively transitive social ordering.
+    \item Holds trivially.
+    \item Holds trivially.
+    \item Let $i$ be a dictator. Suppose every else's preferences are the opposite of the dictator. Then if $x \succ_i x'$, then $x' \succ^* x$ under the majority rule. $(\contra)$.
+  \end{enumerate}
+\end{proof}
+
+
+
+
+\end{document}
